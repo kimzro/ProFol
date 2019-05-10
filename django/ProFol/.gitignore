@@ -1,0 +1,14 @@
+venv/
+.idea/
+
+*.pyc
+
+db.sqlite3
+
+migrations/
+
+ignore_test.txt
+
+z-TODO.txt
+
+workspace.xml

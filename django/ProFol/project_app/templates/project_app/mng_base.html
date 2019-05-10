@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'project_app/css/mng.css' %}">
+</head>
+<body>
+    <div class="nav">
+        <div class="nav_header">
+            <img src="{% static 'project_app/image/icons/message.png' %}" class="nav_header_icon">
+            <img src="{% static 'project_app/image/icons/setting.png' %}" class="nav_header_icon">
+            <img src="{% static 'project_app/image/icons/alarm.png' %}" class="nav_header_icon">
+        </div>
+
+        <div class="profile">
+            <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_photo">
+            <p style="color:white; opacity:1; display:inline-block;" class="profile_text">
+                <a style="font-size: 0.8em">{{user}}</a><br>
+                <a style="font-size: 0.5em">{{user.email}}</a><br>
+                <img src="{% static 'project_app/image/icons/profile_btn.png' %}" onmouseover="this.src='{% static "project_app/image/icons/profile_btn_yellow.png" %}'" onmouseout="this.src='{% static "project_app/image/icons/profile_btn.png" %}'" class="profile_btn">
+            </p>
+        </div>
+
+        {% block nav-menu %}
+        {% endblock %}
+    </div>
+
+    <!-- wrapper class -->
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

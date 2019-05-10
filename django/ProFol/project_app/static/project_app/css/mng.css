@@ -1,0 +1,194 @@
+/* html{
+    font-size:62.5%;
+}  */
+body{
+    margin:0px;
+    background-color: #DDDFE6;
+    font-size:62.5%;
+    min-width: 1064px;
+}
+h1{
+    display:inline;
+    /* font-size:50; */
+    font-size:5em;
+    color:#252C41;
+}
+h2{
+    display:inline;
+    font-size:1.8em;
+    color:white;
+    margin:0px;
+}
+p{
+    display:inline;
+    font-size:2.5em;
+    color:#252C41;
+    opacity:0.7;
+}
+ul{
+    list-style: none;
+}
+hr{
+    border-bottom:none;
+    border-left: none;
+    border-right: none;
+    margin-top:70px;
+    margin-bottom:10px;
+}
+a{
+    text-decoration:none;
+}
+a:hover{
+    cursor: pointer;
+}
+.nav{
+    background-color: #252C41;
+    width: 23%;
+    height: 100%;
+    float:left;
+    position: fixed;
+    overflow: hidden;
+    min-width: 172px;
+}
+.nav_header{
+    margin: 14px 4.5% 42px 54%;
+}
+.nav_header_icon{
+    width:26%;
+    margin-right:3%;
+}
+.profile{
+    position: relative;
+    width:100%;
+    color:white;
+}
+.profile_photo{
+    width:36.8%; 
+    display:inline-block;
+    position: relative;
+    left:13.1%;
+}
+.profile_text{
+    position: relative;
+    left:15%;
+    margin:0px;
+}
+.profile_btn{
+    width:71%; 
+    margin-top:15px;
+}
+.profile_btn:hover{
+    cursor: pointer;
+}
+
+.menu{
+    width:100%;
+    position: relative;
+    left:13.1%;
+    top:42px;
+}
+.menu_item:hover{
+    cursor: pointer;
+}
+.selected_menu{
+    background-color:#F9C00C;
+    padding:8px;
+    padding-left:16px;
+    border-radius: 24px;
+    /* 추가적으로 내부에 h2태그 글자색깔 #252C41로 변경할 것 */
+}
+.wrapper{
+    margin-left: 12%;
+    margin-right:9.5%;
+    padding-top:36px;
+    width:55.5%;
+    height:100%;
+    float:right;
+}
+.title{
+    margin-bottom: 24px;
+}
+.title_icon{
+    height:5em;
+}
+.subtitle_icon{
+    height:2.5em;
+}
+
+.card{
+    position: relative;
+    background-color: #F4F5F9;
+    border-radius: 5px;
+    box-shadow: 0px 3px 3px rgb(203, 203, 204);
+    height:auto;
+    margin-top:18px;
+    margin-bottom:8px;
+    padding: 19px 3% 14 11.3%;
+    font-size:2.5em;
+    overflow: hidden;
+}
+.icon_in_card{
+    height:1em;
+}
+.task{
+    display: inline-block;
+    width:40%;
+    overflow:hidden;
+}
+
+.group{
+    display: inline-block;
+    width:23%;
+    vertical-align: top;
+}
+.dday{
+    display: inline-block;
+    margin-right:20%;
+    vertical-align: top;
+}
+.complete{
+    position:absolute;
+    right:3%;
+    top:23.5px;
+}
+.complete:hover{
+    cursor: pointer;
+}
+.part{
+    width:8%;
+    margin-top:19px;
+    margin-left:3%;
+    display: inline-block;
+}
+.tag{
+    width:7.4%;
+    margin-top:19px;
+    margin-left:3%;
+    display: inline-block; 
+}
+
+.add_task{
+    float:right;
+    margin-top:10px;
+}
+.add_task:hover{
+    opacity:0.7;
+    cursor:pointer;
+}
+.create_project{
+    float:right;
+    margin-top:2em;
+}
+.create_project:hover{
+    opacity:0.7;
+    cursor:pointer;
+}
+
+
+.opacity07{
+    opacity: 0.7x;
+}
+
+/*git test*/
+/*git test2*/
+/*git test3*/

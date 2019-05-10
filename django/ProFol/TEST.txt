@@ -1,0 +1,15 @@
+1. 파이썬 환경 변경
+ venv/Scripts/activate.bat
+
+2. django 설치
+ pip install django
+
+3 django project 설치
+ django-admin startproject profol_site .  (프로젝트 이름)
+
+4. django app 설치
+ python manage.py startapp project_app (앱이름)
+
+=====================================
+pip install markdownx
+pip install django-allauth

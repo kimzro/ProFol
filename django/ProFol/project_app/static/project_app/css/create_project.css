@@ -1,0 +1,46 @@
+body{
+    background-color: #DDDFE6
+}
+h1{
+    display:inline;
+    font-size:50;
+    color:#252C41;
+}
+input{
+    background-color:rgba(1,1,1,0);
+    border-top-style: none;
+    border-left-style: none;
+    border-right-style: none;
+    border-bottom: 1px solid #252C41;
+}
+input[type="text"]{
+    width:60%;
+}
+
+.wrapper{
+    margin-left: 17.5%;
+    margin-right: 27%;
+    /*background-color: red;*/
+}
+.card{
+    background-color: #F4F5F9;
+    border-radius: 5px;
+    box-shadow: 0px 3px 3px rgb(203, 203, 204);
+    margin-top:8px;
+    margin-bottom:8px;
+    padding:8px;
+}
+.card-title{
+    font-size:30;
+    color:#252C41;
+    display:block;
+    margin-bottom:8px;
+}
+.create_btn{
+    float:right;
+    background-color:#F9C00C;
+    border-style:none;
+    font-size:30;
+    border-radius:80px;
+    padding:1% 3%;
+}

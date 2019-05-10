@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="{% static 'project_app/css/portfolio.css' %}">
+    </head>
+
+    <body>
+        <div class="header">
+            <div class="header_profile">
+                <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_img">
+                {{user}}
+            </div>
+        </div>
+        <div class="wrapper">
+            <div class="intro">
+                {{ userPortfolio.content | safe }}
+            </div>
+            <hr>
+            <div class="projects">
+                Projects<br>
+                {% for project in project_list %}
+                <div class="project_card" onclick="location.href='/app/portfolio_detail/{{project.pk}}'">
+                    {{project}}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="footer">
+
+        </div>
+    </body>
+</html>

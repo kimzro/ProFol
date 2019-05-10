@@ -1,0 +1,92 @@
+body{
+    margin:0px;
+    font-size:62.5%;
+
+}
+
+.header{
+    background-color: #F4F5F9;
+    display:inline-block;
+    height:92px;
+    width:100%;
+    position: sticky;
+    top:0px;
+    z-index: 999;
+    padding-left:17%;
+    box-shadow: 0px 3px 3px rgb(203, 203, 204);
+}
+.header_profile{
+    vertical-align: middle;
+    margin: 8px 0px 8px 0px;
+    height:70px;
+    font-weight: bolder;
+    font-size: 35px;
+    line-height: 76px;
+    color:#252C41
+}
+.profile_img{
+    height:100%; 
+    float: left; 
+    margin-right: 30px;
+}
+
+.wrapper{
+    margin-top:20px;
+    font-size:2em;
+}
+
+.intro{
+    margin-left:25%;
+    margin-right:25%;
+    margin-bottom:20px;
+}
+.projects{
+    font-weight: bold;
+    font-size:2em;
+    margin:0px 18% 92px 18%;
+    color:#252C41;
+}
+.project_card{
+    float: left;
+    background-color: #F4F5F9;
+    width:30%;
+    height: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 3px 3px rgb(203, 203, 204);
+    margin:32px 16px 0px 0px;
+    font-size:0.5em;
+    text-align:center;
+    padding:36px 0px 36px 0px;
+    line-height: 20px;
+    vertical-align: middle;
+}
+.project_card:hover{
+    cursor:pointer;
+    background-color: #D3D3D3;
+}
+.project_intro{
+    font-size:0.5em;
+    font-weight: normal;
+    color:black;
+}
+
+/* for django */
+p{
+    font-size:0.5em;
+    font-weight: normal;
+    color:black;
+}
+
+.footer{
+    background-color: rgba(0,0,0,0);
+    display:inline-block;
+    height:92px;
+    width:100%;
+}
+
+.chart{
+    position: relative;
+    float: left;
+    right:5%;
+    margin:0px;
+}

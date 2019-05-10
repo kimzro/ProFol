@@ -1,0 +1,116 @@
+{% load static %}
+{% load socialaccount %}
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'project_app/css/mng.css' %}">
+    <link rel="stylesheet" href="{% static 'project_app/css/mng_project.css' %}">
+</head>
+<body>
+    <div class="nav">
+
+        <div class="nav_header">
+            <img src="{% static 'project_app/image/icons/message.png' %}" class="nav_header_icon">
+            <img src="{% static 'project_app/image/icons/setting.png' %}" class="nav_header_icon">
+            <img src="{% static 'project_app/image/icons/alarm.png' %}" class="nav_header_icon">
+        </div>
+
+        <div class="profile">
+            {% if user.socialaccount_set.all.0.get_avatar_url %}
+            <img src="{{ user.socialaccount_set.all.0.get_avatar_url }}" class="profile_photo"/>
+            {% else %}
+            <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_photo">
+            {% endif %}
+            <p style="color:white; opacity:1; display:inline-block;" class="profile_text">
+                <a onclick="location.href='/app/'" style="font-size: 0.8em">{{user}}</a><br>
+                <a style="font-size: 0.5em">{{user.email}}</a><br>
+                <img src="{% static 'project_app/image/icons/profile_btn.png' %}"
+                     onmouseover="this.src='{% static 'project_app/image/icons/profile_btn_yellow.png' %}'"
+                     onmouseout="this.src='{% static 'project_app/image/icons/profile_btn.png' %}'"
+                     onclick="location.href='/app/portfolio/'"
+                     class="profile_btn">
+            </p>
+        </div>
+
+        <div class="menu">
+            {% for project in project_list %}
+
+                {% if project == pk_project %}
+                <div class="menu_item selected_menu">
+                    <img src="{% static 'project_app/image/icons/project_white.png' %}" style="width:6.5%">
+                    <a href="{{project.get_absolute_url}}">
+                        <h2>{{ project }}</h2>
+                    </a>
+                </div>
+                {% else %}
+                <div class="menu_item">
+                    <img src="{% static 'project_app/image/icons/project_white.png' %}" style="width:6.5%">
+                    <a href="{{project.get_absolute_url}}">
+                        <h2>{{ project }}</h2>
+                    </a>
+                </div>
+                {% endif %}
+
+                <ul>
+                    {% for category in project.category.all %}
+                    <li class="menu_item">
+                        <img src="{% static 'project_app/image/icons/part_white.png' %}" style="width:6.5%">
+                        <a href="/app/{{project.pk}}/{{category}}/">
+                            <h2>{{category}}</h2>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endfor %}
+        </div>
+    </div>
+
+    <div class="wrapper">
+        <div class="title">
+            <h1>{{pk_project}}</h1>
+            <p>{{pk_project.start_date}} ~ {{pk_project.end_date}}</p>
+        </div>
+        <div class="card">
+            <div class="circle">
+                <div class="dday_txt_area">
+                    D-{{project_dday}}
+                </div>
+            </div>
+            <div class="part_area">
+                {% for category in category_list %}
+                <div class="parts">
+                    <img src="{% static 'project_app/image/icons/part.png' %}" class="part_icon"
+                    onclick="location.href='/app/{{pk_project.pk}}/{{category}}/'"><br>
+                    {{category}}
+                </div>
+                {% endfor %}
+
+            </div>
+            <div class="member_area">
+                <img src="{% static 'project_app/image/icons/group.png' %}" class="member_icon">
+                <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_icon">
+                <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_icon">
+                <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_icon">
+                <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_icon">
+                <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_icon">
+                <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_icon">
+                <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_icon">
+            </div>
+        </div>
+        <div class="card sched">
+            <img src="{% static 'project_app/image/icons/time.png' %}" style="opacity:0.7" class="sched_icon">
+            <a class="sched_title">팀회의</a>
+            <a class="sched_detail">19.03.14 15:00 ICT301</a>
+        </div>
+        <div class="card sched">
+            <img src="{% static 'project_app/image/icons/time.png' %}" style="opacity:0.7" class="sched_icon">
+            <a class="sched_title">팀회의</a>
+            <a class="sched_detail">19.03.14 15:00 ICT301</a>
+        </div>
+        <div class="add_sched">
+            <img src="{% static 'project_app/image/icons/add_sched.png' %}">
+        </div>
+        <hr style="width:100%;">
+        <p class="edit_project_btn">프로젝트 수정</p>
+    </div>
+</body>
+</html>

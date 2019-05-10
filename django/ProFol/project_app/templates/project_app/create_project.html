@@ -1,0 +1,43 @@
+{% load static %}
+{% load socialaccount %}
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'project_app/css/create_project.css' %}">
+</head>
+<body>
+    <div class="wrapper">
+        <!--제목-->
+        <img src="{% static 'project_app/image/icons/project.png' %}">
+        <h1>프로젝트 생성</h1>
+
+        <form method="POST" action="/app/create_project/">
+            {%csrf_token%}
+
+            <!--항목: card로 구성-->
+            <div class="card">
+            <a class="card-title">프로젝트명</a>
+                {{project_form.title}}
+            </div>
+            <div class="card">
+                <a class="card-title">프로젝트 개요</a>
+                {{project_form.content}}
+            </div>
+
+            <div class="card">
+                <a class="card-title">프로젝트 기간</a>
+                {{project_form.start_date}} ~ {{project_form.end_date}}
+            </div>
+
+            <div class="card"> <!--여기아직 못함! 일단 패스-->
+                <a class="card-title">파트</a>
+                {{project_form.category}}
+            </div>
+
+            <!--{{project_form.prj_image}}-->
+
+            <button type="submit" class="create_btn">생성</button>
+        </form>
+        {{project_form.media}}
+    </div>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="{% static 'project_app/css/portfolio.css' %}">
+
+        <!--Load the AJAX API-->
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+
+        // Load the Visualization API and the corechart package.
+        google.charts.load('current', {'packages':['corechart']});
+
+        // Set a callback to run when the Google Visualization API is loaded.
+        google.charts.setOnLoadCallback(drawChart);
+
+        // Callback that creates and populates a data table,
+        // instantiates the pie chart, passes in the data and
+        // draws it.
+        function drawChart() {
+
+            // Create the data table.
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Topping');
+            data.addColumn('number', 'Slices');
+
+            {% for todo_key, todo_value in todo_dict.items %}
+            data.addRow(['{{todo_key}}', {{todo_value}}])
+            {% endfor %}
+
+
+
+            // Set chart options
+            var options = {'title':'How Much Pizza I Ate Last Night',
+                        'width':480,
+                        'height':360};
+
+            // Instantiate and draw our chart, passing in some options.
+            var chart1 = new google.visualization.PieChart(document.getElementById('pie_chart_div'));
+            var chart2 = new google.visualization.BarChart(document.getElementById('bar_chart_div'));
+            chart1.draw(data, options);
+            chart2.draw(data, options);
+        }
+        </script>
+    </head>
+    <body>
+
+        <div class="header">
+            <div class="header_profile">
+                <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_img">
+                {{user}}
+            </div>
+        </div>
+        <div class="wrapper">
+            <div class="projects">
+                {{pk_project}}<br>
+                <p class="project_intro">
+                    {{pk_project.get_markdown_content | safe }}
+                </p>
+            </div>
+
+            <hr>
+            <div class="projects">
+                Parts<br>
+                <!--Div that will hold the pie chart-->
+                <div id="pie_chart_div" class="chart"></div>
+                <div id="bar_chart_div" class="chart"></div>
+            </div>
+        </div>
+    </body>
+</html>

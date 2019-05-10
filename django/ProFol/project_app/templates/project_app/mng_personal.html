@@ -1,0 +1,183 @@
+{% load static %}
+{% load socialaccount %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'project_app/css/mng.css' %}">
+</head>
+<body>
+    <div class="nav">
+            <div class="nav_header">
+                <img src="{% static 'project_app/image/icons/message.png' %}" class="nav_header_icon">
+                <img src="{% static 'project_app/image/icons/setting.png' %}" class="nav_header_icon">
+                <img src="{% static 'project_app/image/icons/alarm.png' %}" class="nav_header_icon">
+            </div>
+
+            <div class="profile">
+                {% if user.socialaccount_set.all.0.get_avatar_url %}
+                <img src="{{ user.socialaccount_set.all.0.get_avatar_url }}" class="profile_photo"/>
+                {% else %}
+                <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_photo">
+                {% endif %}
+                <p style="color:white; opacity:1; display:inline-block;" class="profile_text">
+                    <a onclick="location.href='/app/'" style="font-size: 0.8em">{{user}}</a><br>
+                    <a style="font-size: 0.5em">{{user.email}}</a><br>
+                    <img src="{% static 'project_app/image/icons/profile_btn.png' %}"
+                         onmouseover="this.src='{% static 'project_app/image/icons/profile_btn_yellow.png' %}'"
+                         onmouseout="this.src='{% static 'project_app/image/icons/profile_btn.png' %}'"
+                         onclick="location.href='/app/portfolio/'"
+                         class="profile_btn">
+                </p>
+            </div>
+
+            <div class="menu">
+                {% for project in project_list %}
+                <div class="menu_item">
+                    <img src="{% static 'project_app/image/icons/project_white.png' %}" style="width:6.5%">
+                    <a href="{{project.get_absolute_url}}">
+                        <h2>{{ project }}</h2>
+                    </a>
+                </div>
+                <ul>
+                    {% for category in project.category.all %}
+                    <li class="menu_item">
+                        <img src="{% static 'project_app/image/icons/part_white.png' %}" style="width:6.5%">
+                        <a href="/app/{{project.pk}}/{{category}}/">
+                            <h2>{{category}}</h2>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endfor %}
+            </div>
+        </div>
+
+    <div class="wrapper">
+        <!-- Title, Create Project -->
+        <div class="title">
+            <img src="{% static 'project_app/image/icons/part.png' %}" class="title_icon">
+            <h1>To Do List</h1>
+
+            <div class="create_project">
+                <img src="{% static 'project_app/image/icons/create_project_btn.png' %}"
+                     onclick="location.href='/app/create_project_form/'">
+            </div>
+        </div>
+
+        <!-- Card -->
+        {% for project in project_list %}
+
+        {% for prjName, todoCnt in project_todo_list.items%}
+        {% if prjName == project %}
+        {% if todoCnt.0 != 0 %}
+        <Br><img src="{% static 'project_app/image/icons/project2.png' %}" class="subtitle_icon">
+        <p>{{project}}</p>
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+
+        {% for todo in project.todo_set.all %}
+        {% if todo.status is False %}
+        <div class="card" id="card-{{todo.pk}}">
+            <div class="task">
+                <img src="{% static 'project_app/image/icons/paper2.png' %}" class="icon_in_card">
+                {{todo}}
+            </div>
+            <div class="group">
+                <img src="{% static 'project_app/image/icons/group.png' %}" class="opacity07 icon_in_card">
+                dfdfef
+            </div>
+            <div class="dday">
+                {% for todo_dday_key, todo_dday_value in todo_list_dday.items %}
+                    {% if todo_dday_key == todo %}
+                        {% if todo_dday_value > 0 %}
+                            D-{{todo_dday_value}}
+                        {% else %}
+                            Ended
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="complete">
+                <img src="{% static 'project_app/image/icons/check(empty).png' %}"
+                     onmouseover="this.src='{% static 'project_app/image/icons/check(full).png' %}'"
+                     onmouseout="this.src='{% static 'project_app/image/icons/check(empty).png' %}'"
+                     onclick="location.href='/app/done/{{todo.pk}}'" >
+            </div>
+
+            <div class="part">
+                <img src="{% static 'project_app/image/icons/part2.png' %}" class="icon_in_card">
+                {{todo.category}}
+            </div>
+            {% if todo.tag is not None %}
+            <div class="tag">
+                <img src="{% static 'project_app/image/icons/tag2.png' %}" class="icon_in_card">
+                {{ todo.tag }}
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endfor %}
+
+
+        <!-- todo.status == True -->
+        {% if finishedCountValue != 0 %}
+        <hr>
+        <p>Finished</p>
+        {% endif %}
+
+        {% for project in project_list %}
+        {% for prjName, todoCnt in project_todo_list.items%}
+        {% if prjName == project %}
+        {% if todoCnt.1 != 0 %}
+        <Br><img src="{% static 'project_app/image/icons/project2.png' %}" class="subtitle_icon">
+        <p>{{project}}</p>
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+
+        {% for todo in project.todo_set.all %}
+        {% if todo.status is True %}
+        <div class="card" id="card-finished-{{todo.pk}}">
+            <div class="task">
+                <img src="{% static 'project_app/image/icons/paper2.png' %}" class="icon_in_card">
+                {{todo}}
+            </div>
+            <div class="group">
+                <img src="{% static 'project_app/image/icons/group.png' %}" class="opacity07 icon_in_card">
+                dfdfef
+            </div>
+            <div class="dday">
+                <!-- 수정 todo_dday_key==todo에서 name으로 찾기, and pk도 비교해야함 -->
+                {% for todo_dday_key, todo_dday_value in todo_list_dday.items %}
+                    {% if todo_dday_key == todo %}
+                        {% if todo_dday_value > 0 %}
+                            D-{{todo_dday_value}}
+                        {% else %}
+                            Ended
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="complete">
+                <img src="{% static 'project_app/image/icons/check(full).png' %}">
+            </div>
+
+            <div class="part">
+                <img src="{% static 'project_app/image/icons/part2.png' %}" class="icon_in_card">
+                {{todo.category}}
+            </div>
+            {% if todo.tag is not None %}
+            <div class="tag">
+                {{ todo.tag }}
+                <img src="{% static 'project_app/image/icons/tag2.png' %}" class="icon_in_card">
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endfor %}
+    </div>
+</body>
+</html>
