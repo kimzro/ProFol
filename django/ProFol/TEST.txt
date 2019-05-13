@@ -11,5 +11,10 @@
  python manage.py startapp project_app (¾ÛÀÌ¸§)
 
 =====================================
-pip install markdownx
+pip install django-markdownx
 pip install django-allauth
+
+=====================================
+OperationalError No Such Table ¿¡·¯
+
+=> python manage.py migrate --run-syncdb
