@@ -93,7 +93,8 @@
                 <img src="{% static 'project_app/image/icons/check(empty).png' %}"
                      onmouseover="this.src='{% static 'project_app/image/icons/check(full).png' %}'"
                      onmouseout="this.src='{% static 'project_app/image/icons/check(empty).png' %}'"
-                     onclick="location.href='/app/{{pk_project.pk}}/{{pk_category}}/done/{{todo.pk}}'">
+                     onclick="location.href='/app/{{pk_project.pk}}/{{pk_category}}/done/{{todo.pk}}'"
+                    style="width:100%">
             </div>
             
             <div class="part">
@@ -110,7 +111,7 @@
         {% endif %}
         {% endfor %}
         <div class="add_task">
-            <img src="{% static 'project_app/image/icons/add_task_btn.png' %}">
+            <img src="{% static 'project_app/image/icons/add_task_btn.png' %}" style="height:100%">
         </div>
 
         {% if countList.1 != 0 %}
@@ -122,11 +123,11 @@
         {% if todo.status is True %}
         <div class="card" id="card-finished-{{todo.pk}}">
             <div class="task">
-                <img src="{% static 'project_app/image/icons/paper2.png' %}" class="icon_in_card' %}">
+                <img src="{% static 'project_app/image/icons/paper2.png' %}" class="icon_in_card">
                 {{todo}}
             </div>
             <div class="group">
-                <img src="{% static 'project_app/image/icons/group.png' %}" class="opacity07 icon_in_card' %}">
+                <img src="{% static 'project_app/image/icons/group.png' %}" class="opacity07 icon_in_card">
                 dfdfef
             </div>
             <div class="dday">
@@ -141,7 +142,7 @@
                 {% endfor %}
             </div>
             <div class="complete">
-                <img src="{% static 'project_app/image/icons/check(full).png' %}">
+                <img src="{% static 'project_app/image/icons/check(full).png' %}" style="width:100%" >
             </div>
             
             <div class="part">
@@ -157,6 +158,7 @@
         </div>
         {% endif %}
         {% endfor %}
+        <br><br><br><br><br><br><br><br><br><br><br><br>
     </div>
 </body>
 </html>

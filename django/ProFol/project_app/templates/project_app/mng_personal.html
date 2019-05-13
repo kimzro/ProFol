@@ -60,7 +60,7 @@
 
             <div class="create_project">
                 <img src="{% static 'project_app/image/icons/create_project_btn.png' %}"
-                     onclick="location.href='/app/create_project_form/'">
+                     onclick="location.href='/app/create_project_form/'" style="height:100%">
             </div>
         </div>
 
@@ -102,7 +102,8 @@
                 <img src="{% static 'project_app/image/icons/check(empty).png' %}"
                      onmouseover="this.src='{% static 'project_app/image/icons/check(full).png' %}'"
                      onmouseout="this.src='{% static 'project_app/image/icons/check(empty).png' %}'"
-                     onclick="location.href='/app/done/{{todo.pk}}'" >
+                     onclick="location.href='/app/done/{{todo.pk}}'"
+                    style="width:100%">
             </div>
 
             <div class="part">
@@ -131,7 +132,7 @@
         {% for prjName, todoCnt in project_todo_list.items%}
         {% if prjName == project %}
         {% if todoCnt.1 != 0 %}
-        <Br><img src="{% static 'project_app/image/icons/project2.png' %}" class="subtitle_icon">
+        <Br><Br><img src="{% static 'project_app/image/icons/project2.png' %}" class="subtitle_icon">
         <p>{{project}}</p>
         {% endif %}
         {% endif %}
@@ -161,7 +162,7 @@
                 {% endfor %}
             </div>
             <div class="complete">
-                <img src="{% static 'project_app/image/icons/check(full).png' %}">
+                <img src="{% static 'project_app/image/icons/check(full).png' %}" style="width:100%">
             </div>
 
             <div class="part">
@@ -178,6 +179,7 @@
         {% endif %}
         {% endfor %}
         {% endfor %}
+        <br><br><br><br><br><br><br><br><br><br><br><br>
     </div>
 </body>
 </html>

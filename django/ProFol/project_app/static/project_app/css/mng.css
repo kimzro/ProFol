@@ -6,11 +6,12 @@ body{
     background-color: #DDDFE6;
     font-size:62.5%;
     min-width: 1064px;
+    font-family:"segoe UI";
 }
 h1{
     display:inline;
     /* font-size:50; */
-    font-size:5em;
+    font-size:4em;
     color:#252C41;
 }
 h2{
@@ -21,7 +22,7 @@ h2{
 }
 p{
     display:inline;
-    font-size:2.5em;
+    font-size:2.0em;
     color:#252C41;
     opacity:0.7;
 }
@@ -106,10 +107,10 @@ a:hover{
     float:right;
 }
 .title{
-    margin-bottom: 24px;
+    margin-bottom: 8px;
 }
 .title_icon{
-    height:5em;
+    height:4em;
 }
 .subtitle_icon{
     height:2.5em;
@@ -124,7 +125,7 @@ a:hover{
     margin-top:18px;
     margin-bottom:8px;
     padding: 19px 3% 14 11.3%;
-    font-size:2.5em;
+    font-size:2.0em;
     overflow: hidden;
 }
 .icon_in_card{
@@ -147,15 +148,16 @@ a:hover{
     vertical-align: top;
 }
 .complete{
+    width:3.7em;
     position:absolute;
     right:3%;
-    top:23.5px;
+    top:15px;
 }
 .complete:hover{
     cursor: pointer;
 }
 .part{
-    width:8%;
+    width:20%;
     margin-top:19px;
     margin-left:3%;
     display: inline-block;
@@ -170,12 +172,14 @@ a:hover{
 .add_task{
     float:right;
     margin-top:10px;
+    height:2.5em;
 }
 .add_task:hover{
     opacity:0.7;
     cursor:pointer;
 }
 .create_project{
+    height:2.5em;
     float:right;
     margin-top:2em;
 }
