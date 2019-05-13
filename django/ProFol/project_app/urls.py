@@ -16,6 +16,8 @@ urlpatterns = [
     # create prject, todolist
     path('app/create_project_form/', views.create_project_form),
     path('app/create_project/', views.create_project),
+    path('app/<int:pk>/<str:category_title>/create_todo_form/', views.create_todo_form),
+    path('app/<int:pk>/<str:category_title>/create_todo/', views.create_todo),
 
     # redirection
     path('app/done/<int:pk>', views.finish_todo),
