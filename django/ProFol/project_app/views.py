@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.shortcuts import render, redirect
 from .models import Project,Category, Todo, UserPortfolio
 
-from .forms import ProjectForm
+from .forms import ProjectForm, TodoForm
 # Create your views here.
 
 def index_redirect(request):
@@ -167,6 +167,13 @@ def create_project_form(request):
     context = {"project_form": project_form}
     return render(request, 'project_app/create_project.html', context)
 
+def create_todo_form(request, pk, category_title):
+    project = Project.objects.get(pk=pk)
+    category = Category.objects.get(title=category_title)
+    todo_form = TodoForm(initial={'project':project, 'category':category})
+    context = {"todo_form": todo_form, 'pk':pk, 'category_title':category_title}
+    return render(request, 'project_app/create_todo.html', context)
+
 def create_project(request):
 
     if request.method == "POST":
@@ -179,6 +186,28 @@ def create_project(request):
             project.save()
             project_form.save_m2m()
             return redirect('/app/')
+    else:
+        print("else")
+        return redirect('/app/')
+
+def create_todo(request, pk, category_title):
+    start_date = timezone.localdate()
+
+    if request.method =="POST":
+        print("request.method==POST")
+        todo_form = TodoForm(request.POST)
+        if todo_form.is_valid():
+            print("todo_form.is_valid")
+            todo = todo_form.save(commit=False)
+            todo.author = request.user
+            todo.start_date = start_date
+            # todo.project = project
+            # todo.category = category
+            todo.save()
+
+            return redirect('/app/' + str(pk) + '/' + category_title + '/')
+        else:
+            print("todo_form.is_not_valid")
     else:
         print("else")
         return redirect('/app/')
