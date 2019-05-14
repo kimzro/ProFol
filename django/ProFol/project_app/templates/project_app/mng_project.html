@@ -36,9 +36,9 @@
 
                 {% if project == pk_project %}
                 <div class="menu_item selected_menu">
-                    <img src="{% static 'project_app/image/icons/project_white.png' %}" style="width:6.5%">
+                    <img src="{% static 'project_app/image/icons/project.png' %}" style="width:6.5%">
                     <a href="{{project.get_absolute_url}}">
-                        <h2>{{ project }}</h2>
+                        <h2 style="color:#252C41">{{ project }}</h2>
                     </a>
                 </div>
                 {% else %}
@@ -62,6 +62,7 @@
                 </ul>
                 {% endfor %}
         </div>
+                <br><br><br><br><br><br><br><br><br><br><br><br>
     </div>
 
     <div class="wrapper">
