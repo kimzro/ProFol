@@ -34,12 +34,16 @@ class Project(models.Model):
     def __str__(self):
         return "{}".format(self.title)
     def get_absolute_url(self):
-        return '/app/{}/'.format(self.pk)
+        return '    /app/{}/'.format(self.pk)
     def get_markdown_content(self):
         return markdown(self.content)
 
 class Tag(models.Model):
-    title = models.CharField(max_length=10, unique=True)
+    title = models.TextField()
+    project = models.ForeignKey(Project, on_delete=True)
+    category = models.ForeignKey(Category, on_delete=True)
+    user = models.ForeignKey(User, on_delete=True)
+    score = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
@@ -52,10 +56,12 @@ class Todo(models.Model):
     status = models.BooleanField(default=False)
     project = models.ForeignKey(Project, on_delete=True)
     category = models.ForeignKey(Category, on_delete=True)
-    tag = models.ForeignKey(Tag, on_delete=False, blank=True, null=True)
+    # tag = models.ForeignKey(Tag, on_delete=False, blank=True, null=True)
+    tag = models.TextField(blank=True, null=True)
     author = models.ForeignKey(User, on_delete=True)
     start_date = models.DateField()
     end_date = models.DateField()
 
     def __str__(self):
         return "{}".format(self.content)
+

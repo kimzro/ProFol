@@ -2,11 +2,13 @@ from django.utils import timezone
 
 
 from django.shortcuts import render, redirect
-from .models import Project,Category, Todo, UserPortfolio
+from .models import Project,Category, Todo, UserPortfolio, Tag
 
 from .forms import ProjectForm, TodoForm
-# Create your views here.
 
+import operator
+
+# Create your views here.
 def index_redirect(request):
     return redirect('/app/')
 
@@ -106,7 +108,6 @@ def mng_part(request,pk,category_title):
 
     print("CountList = {}".format(countList))
 
-
     todo_list_dday = {}
     now = timezone.localdate()
     for todo in todo_list:
@@ -124,7 +125,6 @@ def mng_part(request,pk,category_title):
 def user_portfolio(request):
     project_list = Project.objects.filter(author=request.user)
     userPortfolio = UserPortfolio.objects.get(author = request.user)
-    print("TEST===============================================================")
     context = {'project_list':project_list, 'userPortfolio':userPortfolio}
     return render(request, 'project_app/portfolio_1.html', context)
 
@@ -141,26 +141,68 @@ def user_portfolio_detail(request, pk):
             todo_dict[todo.category.__str__()] = 0
         todo_dict[todo.category.__str__()] += 1
 
+    # {'기획' : 4, '디자인' : 2}
+    Sort = sorted(todo_dict.items(), key=operator.itemgetter(1), reverse=True)
 
-    context = {'pk_project':pk_project, 'score':score, "todo_dict":todo_dict}
+    category_title = Sort[0][0] # 기획
+    category = Category.objects.get(title = category_title)
+
+    tag_list = Tag.objects.filter(project = pk_project, category = category, user = request.user)
+    tag_dict = {}   #{'#HTML' : 5, '#CSS' : 3}
+    for tag in tag_list:
+        if tag.score == 0:
+            continue
+        tag_dict[tag.title.__str__()] = tag.score
+
+    todo_dict = dict(Sort)
+
+    context = {'pk_project':pk_project, 'score':score, "todo_dict":todo_dict, "tag_dict":tag_dict}
     return render(request, 'project_app/portfolio_2.html', context)
 
 
-def finish_todo(request, pk):
-    done_todo = Todo.objects.get(pk=pk)
+# mng_personal.html 에서 complete btn 적용
+def finish_todo(request, todo_pk):
+    done_todo = Todo.objects.get(pk=todo_pk)
     done_todo.status = True
     done_todo.save()
 
-    redirectAddr = '/app/' + '#card-finished-' + str(pk)
+    tag_title = done_todo.tag
+    try:
+        tag = Tag.objects.get(title=tag_title, user=request.user)
+    except Tag.DoesNotExist:
+        tag = None
+
+    if tag is not None:
+        print("is not None")
+        tag.score += 1
+        tag.save()
+    else:
+        print("else")
+
+
+    redirectAddr = '/app/' + '#card-finished-' + str(todo_pk)
     return redirect(redirectAddr)
 
+# mng_part.html 에서 complete btn 적용
 def finish_todo_part(request,pk,category_title, todo_pk):
     done_todo = Todo.objects.get(pk=todo_pk)
     done_todo.status = True
     done_todo.save()
 
+    tag_title = done_todo.tag
+    try:
+        tag = Tag.objects.get(title=tag_title, user=request.user)
+    except Tag.DoesNotExist:
+        tag = None
+
+    if tag is not None:
+        tag.score+=1
+        tag.save()
+
+
     redirectAddr = '/app/' + str(pk) + "/" + category_title + "/" + "#card-finished-" + str(todo_pk)
     return redirect(redirectAddr)
+
 
 def create_project_form(request):
     project_form = ProjectForm()
@@ -184,7 +226,7 @@ def create_project(request):
             project = project_form.save(commit=False)
             project.author = request.user
             project.save()
-            project_form.save_m2m()
+            project_form.save_m2m() # for ManyToMany save (category)
             return redirect('/app/')
     else:
         print("else")
@@ -192,19 +234,27 @@ def create_project(request):
 
 def create_todo(request, pk, category_title):
     start_date = timezone.localdate()
+    project = Project.objects.get(pk=pk)
+    category = Category.objects.get(title=category_title)
 
     if request.method =="POST":
-        print("request.method==POST")
         todo_form = TodoForm(request.POST)
         if todo_form.is_valid():
-            print("todo_form.is_valid")
             todo = todo_form.save(commit=False)
+
+            # create Tag - if Tag is exist then no create
+            tag_title = todo.tag
+            try:
+                tag = Tag.objects.get(title=tag_title, project=project, category=category, user=request.user)
+            except Tag.DoesNotExist:
+                tag = None
+            if tag is None:
+                tag = Tag(title=tag_title, project=project, category=category, user=request.user)
+                tag.save()
+
             todo.author = request.user
             todo.start_date = start_date
-            # todo.project = project
-            # todo.category = category
             todo.save()
-
             return redirect('/app/' + str(pk) + '/' + category_title + '/')
         else:
             print("todo_form.is_not_valid")

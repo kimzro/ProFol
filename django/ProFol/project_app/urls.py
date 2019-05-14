@@ -20,6 +20,6 @@ urlpatterns = [
     path('app/<int:pk>/<str:category_title>/create_todo/', views.create_todo),
 
     # redirection
-    path('app/done/<int:pk>', views.finish_todo),
+    path('app/done/<int:todo_pk>', views.finish_todo),
     path('app/<int:pk>/<str:category_title>/done/<int:todo_pk>', views.finish_todo_part),
 ]

@@ -22,26 +22,36 @@
         function drawChart() {
 
             // Create the data table.
-            var data = new google.visualization.DataTable();
-            data.addColumn('string', 'Topping');
-            data.addColumn('number', 'Slices');
+            var pieData = new google.visualization.DataTable();
+            var barData = new google.visualization.DataTable();
+
+            pieData.addColumn('string', 'part');
+            pieData.addColumn('number', 'performance degree');
+            barData.addColumn('string', 'tag');
+            barData.addColumn('number', 'performance degree');
 
             {% for todo_key, todo_value in todo_dict.items %}
-            data.addRow(['{{todo_key}}', {{todo_value}}])
+            pieData.addRow(['{{todo_key}}', {{todo_value}}])
+            {% endfor %}
+
+            {% for tag_key, tag_value in tag_dict.items %}
+            barData.addRow(['{{tag_key}}', {{tag_value}}])
             {% endfor %}
 
 
-
             // Set chart options
-            var options = {'title':'How Much Pizza I Ate Last Night',
+            var pie_Options = {'title':'Part',
+                        'width':480,
+                        'height':360};
+            var bar_Options = {'title':'Tag',
                         'width':480,
                         'height':360};
 
             // Instantiate and draw our chart, passing in some options.
             var chart1 = new google.visualization.PieChart(document.getElementById('pie_chart_div'));
             var chart2 = new google.visualization.BarChart(document.getElementById('bar_chart_div'));
-            chart1.draw(data, options);
-            chart2.draw(data, options);
+            chart1.draw(pieData, pie_Options);
+            chart2.draw(barData, bar_Options);
         }
         </script>
     </head>
