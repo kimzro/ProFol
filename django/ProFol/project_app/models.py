@@ -12,6 +12,7 @@ class UserPortfolio(models.Model):
     def get_markdown_content(self):
         return markdown(self.content)
 
+
 class Category(models.Model):
     title = models.CharField(max_length=30, unique=True)
     def __str__(self):

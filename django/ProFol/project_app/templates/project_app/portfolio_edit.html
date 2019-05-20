@@ -16,22 +16,24 @@
                 <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_img">
                 {% endif %}
                 {{user}}
-                <a href="edit_userportfolio_form/">Edit</a>
+                <a href="edit_userportfolio/">Edit</a>
             </div>
         </div>
+
         <div class="wrapper">
-            <div class="intro">
-                {{ userPortfolio.content | safe }}
-            </div>
-            <hr>
-            <div class="projects">
-                Projects<br>
-                {% for project in project_list %}
-                <div class="project_card" onclick="location.href='/app/portfolio_detail/{{project.pk}}'">
-                    {{project}}
+            <form method="POST" action="/app/portfolio/edit_userportfolio/">
+                {%csrf_token%}
+
+                <!--항목: card로 구성-->
+                <div class="card">
+                <a class="card-title">프로필</a>
+                    {{ userPortfolioForm.content }}
                 </div>
-                {% endfor %}
-            </div>
+
+                <button type="submit" class="create_btn">저장</button>
+            </form>
+            <!-- for markdownX -->
+            {{ userPortfolioForm.media }}
         </div>
         <div class="footer">
 

@@ -10,8 +10,11 @@ urlpatterns = [
     path('app/<int:pk>/', views.mng_project),
     path('app/<int:pk>/<str:category_title>/', views.mng_part),
 
+    # portfolio
     path('app/portfolio/', views.user_portfolio),
     path('app/portfolio_detail/<int:pk>/', views.user_portfolio_detail),
+    path('app/portfolio/edit_userportfolio_form/', views.edit_userportfolio_form),
+    path('app/portfolio/edit_userportfolio/', views.edit_userportfolio),
 
     # create prject, todolist
     path('app/create_project_form/', views.create_project_form),

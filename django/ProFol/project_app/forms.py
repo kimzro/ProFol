@@ -1,6 +1,5 @@
 from django import forms
-
-from .models import Project,Category, Todo
+from .models import Project,Category, Todo, UserPortfolio
 
 class ProjectForm(forms.ModelForm):
     class Meta:
@@ -17,3 +16,8 @@ class TodoForm(forms.ModelForm):
     class Meta:
         model = Todo
         fields = ['content', 'category', 'project', 'tag', 'end_date']
+
+class UserPortfolioForm(forms.ModelForm):
+    class Meta:
+        model = UserPortfolio
+        fields = ['content']

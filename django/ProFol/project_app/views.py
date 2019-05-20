@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.shortcuts import render, redirect
 from .models import Project,Category, Todo, UserPortfolio, Tag
 
-from .forms import ProjectForm, TodoForm
+from .forms import ProjectForm, TodoForm, UserPortfolioForm
 
 import operator
 
@@ -133,6 +133,12 @@ def user_portfolio_detail(request, pk):
     pk_project = Project.objects.get(pk=pk)
     score = 5
     todo_list = Todo.objects.filter(project = pk_project)
+    todo_list_count = Todo.objects.filter(project = pk_project).count()
+
+    # if Todo_list's count is 0
+    if todo_list_count == 0:
+        redirectAddr = '/app/portfolio/'
+        return redirect(redirectAddr)
 
     todo_dict = {}
     for todo in todo_list:
@@ -159,6 +165,25 @@ def user_portfolio_detail(request, pk):
     context = {'pk_project':pk_project, 'score':score, "todo_dict":todo_dict, "tag_dict":tag_dict}
     return render(request, 'project_app/portfolio_2.html', context)
 
+# portfolio_edit.html
+def edit_userportfolio_form(request):
+    userPortfolioForm = UserPortfolioForm()
+    context = {'userPortfolioForm':userPortfolioForm}
+
+    return render(request, 'project_app/portfolio_edit.html', context)
+
+def edit_userportfolio(request):
+    print("edit_userportfolio!!!")
+    userPortfolio = UserPortfolio.objects.get(author=request.user)
+
+    if (request.method == 'POST'):
+        userPortfolioForm = UserPortfolioForm(request.POST)
+        if userPortfolioForm.is_valid():
+            userPortfolio.content = userPortfolioForm.cleaned_data['content']
+            userPortfolio.save()
+
+    redirectAddr = '/app/portfolio/'
+    return redirect(redirectAddr)
 
 # mng_personal.html 에서 complete btn 적용
 def finish_todo(request, todo_pk):
@@ -182,6 +207,7 @@ def finish_todo(request, todo_pk):
 
     redirectAddr = '/app/' + '#card-finished-' + str(todo_pk)
     return redirect(redirectAddr)
+
 
 # mng_part.html 에서 complete btn 적용
 def finish_todo_part(request,pk,category_title, todo_pk):
