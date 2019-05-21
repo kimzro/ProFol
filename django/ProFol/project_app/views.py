@@ -28,7 +28,7 @@ def mng_login(request):
 
 def mng_personal(request):
 
-    project_list = Project.objects.all()
+    project_list = Project.objects.filter(author=request.user)
     todo_list = Todo.objects.filter(author=request.user)
 
     project_todo_list = {}
@@ -95,7 +95,7 @@ def mng_project(request, pk):
     return render(request, 'project_app/mng_project.html', context)
 
 def mng_part(request,pk,category_title):
-    project_list = Project.objects.all()
+    project_list = Project.objects.filter(author=request.user)
     pk_project = Project.objects.get(pk=pk)
     pk_category = Category.objects.get(title=category_title)
     todo_list = Todo.objects.filter(project=pk_project, category=pk_category)
