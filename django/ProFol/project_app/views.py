@@ -27,7 +27,8 @@ def mng_login(request):
     return render(request, 'project_app/login.html')
 
 def mng_personal(request):
-    project_list = Project.objects.all()
+
+    project_list = Project.objects.filter(author=request.user)
     todo_list = Todo.objects.filter(author=request.user)
 
     project_todo_list = {}
@@ -94,7 +95,7 @@ def mng_project(request, pk):
     return render(request, 'project_app/mng_project.html', context)
 
 def mng_part(request,pk,category_title):
-    project_list = Project.objects.all()
+    project_list = Project.objects.filter(author=request.user)
     pk_project = Project.objects.get(pk=pk)
     pk_category = Category.objects.get(title=category_title)
     todo_list = Todo.objects.filter(project=pk_project, category=pk_category)
@@ -128,7 +129,17 @@ def mng_part(request,pk,category_title):
 # portfolio_1.html1
 def user_portfolio(request):
     project_list = Project.objects.filter(author=request.user)
-    userPortfolio = UserPortfolio.objects.get(author = request.user)
+
+    try:
+        userPortfolio = UserPortfolio.objects.get(author = request.user)
+    except UserPortfolio.DoesNotExist:
+        userPortfolio = None
+
+    if userPortfolio is None:
+        content = request.user.username + "입니다."
+        userPortfolio = UserPortfolio(author=request.user, content = content)
+        userPortfolio.save()
+
     context = {'project_list':project_list, 'userPortfolio':userPortfolio}
     return render(request, 'project_app/portfolio_1.html', context)
 
