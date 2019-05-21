@@ -25,7 +25,7 @@
 <body>
     <div class="login_box">
         <div class="login_google">
-            <img src="{% static 'project_app/image/icons/sign_in_with_google.png' %}" class="login_icon">
+            <img src="{% static 'project_app/image/icons/sign_in_with_google.png' %}" class="login_icon" onclick="location.href='{% provider_login_url "google" %}' ">
         </div>
     </div>
 </body>

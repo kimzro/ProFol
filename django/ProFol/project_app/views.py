@@ -10,7 +10,7 @@ import operator
 
 # Create your views here.
 def index_redirect(request):
-    return redirect('/app/')
+    return redirect('/app/login/')
 
 def index(request):
     project_list = Project.objects.order_by('-end_date').all()
@@ -20,7 +20,11 @@ def index(request):
     return render(request, 'project_app/index.html', context)
 
 def mng_login(request):
-    return render(request, 'project_app/mng_login.html')
+    if request.user.is_authenticated:
+        print("Registered User!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        return redirect('/app/')
+
+    return render(request, 'project_app/login.html')
 
 def mng_personal(request):
     project_list = Project.objects.all()

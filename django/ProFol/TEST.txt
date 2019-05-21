@@ -15,6 +15,24 @@ pip install django-markdownx
 pip install django-allauth
 
 =====================================
+
 OperationalError No Such Table 에러
 
 => python manage.py migrate --run-syncdb
+
+=====================================
+Google allauth DATABASE
+
+1. http://127.0.0.1:8000/admin/sites/site/
+
+Domain name, Display name: example.com => 127.0.0.1:8000로 수정
+
+
+2. http://127.0.0.1:8000/admin/socialaccount/socialapp/
+
+ADD
+Name: google-login(example)
+Client id: 953222293456-1qcl3fli66a03d61h72fuelts2flod8q.apps.googleusercontent.com
+Secret key: 7gjciAPucNs3LwQD8oAB2v7_
+Sites: 왼쪽의 127.0.0.1:8000 더블클릭 => 오른쪽으로 이동
+Save
