@@ -1,0 +1,32 @@
+{% load static %}
+{% load socialaccount %}
+<html>
+<head>
+    <style type="text/css">
+        body{
+            background-color: #252C41;
+            margin:0;
+            padding:0;
+            text-align: center;
+        }
+        .login_box{
+            margin-top:256px;
+            background-color: #F4F5F9;
+            padding:16px;
+            display:inline-block;
+            border-radius: 5px;
+            box-shadow: 3px 2px 5px rgb(29, 34, 51);
+        }
+        .login_icon{
+            height:31px
+        }
+    </style>
+</head>
+<body>
+    <div class="login_box">
+        <div class="login_google">
+            <img src="{% static 'project_app/image/icons/sign_in_with_google.png' %}" class="login_icon">
+        </div>
+    </div>
+</body>
+</html>

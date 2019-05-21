@@ -170,7 +170,7 @@ a:hover{
     display: inline-block;
 }
 .tag{
-    width:7.4%;
+    width:auto;
     margin-top:19px;
     margin-left:3%;
     display: inline-block; 
