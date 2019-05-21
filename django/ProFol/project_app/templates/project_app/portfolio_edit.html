@@ -11,23 +11,23 @@
         <div class="header">
             <div class="header_profile">
                 {% if user.socialaccount_set.all.0.get_avatar_url %}
-                <img src="{{ user.socialaccount_set.all.0.get_avatar_url }}" class="profile_photo"/>
+                <img src="{{ user.socialaccount_set.all.0.get_avatar_url }}" class="profile_img"/>
                 {% else %}
                 <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_img">
                 {% endif %}
                 {{user}}
-                <a href="edit_userportfolio/">Edit</a>
+<!--                <a href="edit_userportfolio/" class="edit_btn">Edit</a>-->
             </div>
         </div>
 
-        <div class="wrapper">
+        <div class="wrapper" style="padding-left:17%;">
             <form method="POST" action="/app/portfolio/edit_userportfolio/">
                 {%csrf_token%}
 
                 <!--항목: card로 구성-->
                 <div class="card">
-                <a class="card-title">프로필</a>
-                    {{ userPortfolioForm.content }}
+                    <a class="card-title">프로필</a>
+                        {{ userPortfolioForm.content }}
                 </div>
 
                 <button type="submit" class="create_btn">저장</button>
