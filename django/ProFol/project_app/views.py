@@ -158,7 +158,7 @@ def mng_part(request,pk,category_title):
     pk_project = Project.objects.get(pk=pk)
     pk_category = Category.objects.get(title=category_title)
 
-    todo_list = Todo.objects.filter(project=pk_project, category=pk_category)
+    todo_list = Todo.objects.filter(project=pk_project, category=pk_category, author=request.user)
 
     countList = []
     notFinishedCount = 0
@@ -185,7 +185,7 @@ def mng_part(request,pk,category_title):
 
     "Showing Group members - way 2"
     # html file - direct edit
-    
+
     context = {'project_list': project_list, 'pk_project': pk_project, 'pk_category': pk_category, 'todo_list': todo_list, 'todo_list_dday':todo_list_dday, "countList": countList}
     return render(request, 'project_app/mng_part.html', context)
 

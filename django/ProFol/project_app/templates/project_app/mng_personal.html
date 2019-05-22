@@ -77,63 +77,65 @@
                 {% endif %}
             {% endfor %}
 
-        {% for todo in project.todo_set.all %}
-        {% if todo.status is False %}
-        <div class="card" id="card-{{todo.pk}}">
-            <div class="task">
-                <img src="{% static 'project_app/image/icons/paper2.png' %}" class="icon_in_card">
-                {{todo}}
-            </div>
-            <div class="group">
-                <img src="{% static 'project_app/image/icons/group.png' %}" class="opacity07 icon_in_card">
-                {% if project.participation is not None %}
-                    {% for u in project.participation.participation.all %}
-                            {% if u.socialaccount_set.all.0.get_avatar_url %}
-                                <img src="{{ u.socialaccount_set.all.0.get_avatar_url }}" class="profile_photo"/>
-                            {% else %}
-                                <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_photo">
+            {% for todo in project.todo_set.all %}
+                {% if todo.author == user %}
+                    {% if todo.status is False %}
+                    <div class="card" id="card-{{todo.pk}}">
+                        <div class="task">
+                            <img src="{% static 'project_app/image/icons/paper2.png' %}" class="icon_in_card">
+                            {{todo}}
+                        </div>
+                        <div class="group">
+                            <img src="{% static 'project_app/image/icons/group.png' %}" class="opacity07 icon_in_card">
+                            {% if project.participation is not None %}
+                                {% for u in project.participation.participation.all %}
+                                        {% if u.socialaccount_set.all.0.get_avatar_url %}
+                                            <img src="{{ u.socialaccount_set.all.0.get_avatar_url }}" class="profile_photo"/>
+                                        {% else %}
+                                            <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_photo">
+                                        {% endif %}
+                                {% endfor %}
+                            {%else%}
+                                {% if user.socialaccount_set.all.0.get_avatar_url %}
+                                    <img src="{{ user.socialaccount_set.all.0.get_avatar_url }}" class="profile_photo"/>
+                                {% else %}
+                                    <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_photo">
+                                {% endif %}
                             {% endif %}
-                    {% endfor %}
-                {%else%}
-                    {% if user.socialaccount_set.all.0.get_avatar_url %}
-                        <img src="{{ user.socialaccount_set.all.0.get_avatar_url }}" class="profile_photo"/>
-                    {% else %}
-                        <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_photo">
+                        </div>
+                        <div class="dday">
+                            {% for todo_dday_key, todo_dday_value in todo_list_dday.items %}
+                                {% if todo_dday_key == todo %}
+                                    {% if todo_dday_value > 0 %}
+                                        D-{{todo_dday_value}}
+                                    {% else %}
+                                        Ended
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="complete">
+                            <img src="{% static 'project_app/image/icons/check(empty).png' %}"
+                                 onmouseover="this.src='{% static 'project_app/image/icons/check(full).png' %}'"
+                                 onmouseout="this.src='{% static 'project_app/image/icons/check(empty).png' %}'"
+                                 onclick="location.href='/app/done/{{todo.pk}}'"
+                                style="width:100%">
+                        </div>
+
+                        <div class="part">
+                            <img src="{% static 'project_app/image/icons/part2.png' %}" class="icon_in_card">
+                            {{todo.category}}
+                        </div>
+                        {% if todo.tag is not None %}
+                        <div class="tag">
+                            <img src="{% static 'project_app/image/icons/tag2.png' %}" class="icon_in_card">
+                            {{ todo.tag }}
+                        </div>
+                        {% endif %}
+                    </div>
                     {% endif %}
                 {% endif %}
-            </div>
-            <div class="dday">
-                {% for todo_dday_key, todo_dday_value in todo_list_dday.items %}
-                    {% if todo_dday_key == todo %}
-                        {% if todo_dday_value > 0 %}
-                            D-{{todo_dday_value}}
-                        {% else %}
-                            Ended
-                        {% endif %}
-                    {% endif %}
-                {% endfor %}
-            </div>
-            <div class="complete">
-                <img src="{% static 'project_app/image/icons/check(empty).png' %}"
-                     onmouseover="this.src='{% static 'project_app/image/icons/check(full).png' %}'"
-                     onmouseout="this.src='{% static 'project_app/image/icons/check(empty).png' %}'"
-                     onclick="location.href='/app/done/{{todo.pk}}'"
-                    style="width:100%">
-            </div>
-
-            <div class="part">
-                <img src="{% static 'project_app/image/icons/part2.png' %}" class="icon_in_card">
-                {{todo.category}}
-            </div>
-            {% if todo.tag is not None %}
-            <div class="tag">
-                <img src="{% static 'project_app/image/icons/tag2.png' %}" class="icon_in_card">
-                {{ todo.tag }}
-            </div>
-            {% endif %}
-        </div>
-        {% endif %}
-        {% endfor %}
+            {% endfor %}
         {% endfor %}
 
 
@@ -144,69 +146,71 @@
         {% endif %}
 
         {% for project in project_list %}
-        {% for prjName, todoCnt in project_todo_list.items%}
-        {% if prjName == project %}
-        {% if todoCnt.1 != 0 %}
-        <Br><Br><img src="{% static 'project_app/image/icons/project2.png' %}" class="subtitle_icon">
-        <p>{{project}}</p>
-        {% endif %}
-        {% endif %}
-        {% endfor %}
-
-        {% for todo in project.todo_set.all %}
-        {% if todo.status is True %}
-        <div class="card" id="card-finished-{{todo.pk}}">
-            <div class="task">
-                <img src="{% static 'project_app/image/icons/paper2.png' %}" class="icon_in_card">
-                {{todo}}
-            </div>
-            <div class="group">
-                <img src="{% static 'project_app/image/icons/group.png' %}" class="opacity07 icon_in_card">
-                {% if project.participation is not None %}
-                    {% for u in project.participation.participation.all %}
-                            {% if u.socialaccount_set.all.0.get_avatar_url %}
-                                <img src="{{ u.socialaccount_set.all.0.get_avatar_url }}" class="profile_photo"/>
-                            {% else %}
-                                <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_photo">
-                            {% endif %}
-                    {% endfor %}
-                {%else%}
-                    {% if user.socialaccount_set.all.0.get_avatar_url %}
-                        <img src="{{ user.socialaccount_set.all.0.get_avatar_url }}" class="profile_photo"/>
-                    {% else %}
-                        <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_photo">
+            {% for prjName, todoCnt in project_todo_list.items%}
+                {% if prjName == project %}
+                    {% if todoCnt.1 != 0 %}
+                        <Br><Br><img src="{% static 'project_app/image/icons/project2.png' %}" class="subtitle_icon">
+                        <p>{{project}}</p>
                     {% endif %}
                 {% endif %}
-            </div>
-            <div class="dday">
-                <!-- 수정 todo_dday_key==todo에서 name으로 찾기, and pk도 비교해야함 -->
-                {% for todo_dday_key, todo_dday_value in todo_list_dday.items %}
-                    {% if todo_dday_key == todo %}
-                        {% if todo_dday_value > 0 %}
-                            D-{{todo_dday_value}}
-                        {% else %}
-                            Ended
-                        {% endif %}
-                    {% endif %}
-                {% endfor %}
-            </div>
-            <div class="complete">
-                <img src="{% static 'project_app/image/icons/check(full).png' %}" style="width:100%">
-            </div>
+            {% endfor %}
 
-            <div class="part">
-                <img src="{% static 'project_app/image/icons/part2.png' %}" class="icon_in_card">
-                {{todo.category}}
-            </div>
-            {% if todo.tag is not None %}
-            <div class="tag">
-                {{ todo.tag }}
-                <img src="{% static 'project_app/image/icons/tag2.png' %}" class="icon_in_card">
-            </div>
-            {% endif %}
-        </div>
-        {% endif %}
-        {% endfor %}
+            {% for todo in project.todo_set.all %}
+                {% if todo.author == user %}
+                    {% if todo.status is True %}
+                    <div class="card" id="card-finished-{{todo.pk}}">
+                        <div class="task">
+                            <img src="{% static 'project_app/image/icons/paper2.png' %}" class="icon_in_card">
+                            {{todo}}
+                        </div>
+                        <div class="group">
+                            <img src="{% static 'project_app/image/icons/group.png' %}" class="opacity07 icon_in_card">
+                            {% if project.participation is not None %}
+                                {% for u in project.participation.participation.all %}
+                                        {% if u.socialaccount_set.all.0.get_avatar_url %}
+                                            <img src="{{ u.socialaccount_set.all.0.get_avatar_url }}" class="profile_photo"/>
+                                        {% else %}
+                                            <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_photo">
+                                        {% endif %}
+                                {% endfor %}
+                            {%else%}
+                                {% if user.socialaccount_set.all.0.get_avatar_url %}
+                                    <img src="{{ user.socialaccount_set.all.0.get_avatar_url }}" class="profile_photo"/>
+                                {% else %}
+                                    <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_photo">
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                        <div class="dday">
+                            <!-- 수정 todo_dday_key==todo에서 name으로 찾기, and pk도 비교해야함 -->
+                            {% for todo_dday_key, todo_dday_value in todo_list_dday.items %}
+                                {% if todo_dday_key == todo %}
+                                    {% if todo_dday_value > 0 %}
+                                        D-{{todo_dday_value}}
+                                    {% else %}
+                                        Ended
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="complete">
+                            <img src="{% static 'project_app/image/icons/check(full).png' %}" style="width:100%">
+                        </div>
+
+                        <div class="part">
+                            <img src="{% static 'project_app/image/icons/part2.png' %}" class="icon_in_card">
+                            {{todo.category}}
+                        </div>
+                        {% if todo.tag is not None %}
+                        <div class="tag">
+                            {{ todo.tag }}
+                            <img src="{% static 'project_app/image/icons/tag2.png' %}" class="icon_in_card">
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
         {% endfor %}
         <br><br><br><br><br><br><br><br><br><br><br><br>
     </div>
