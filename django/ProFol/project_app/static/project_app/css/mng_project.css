@@ -96,6 +96,8 @@
     font-size:1.5em;
     float: right;
     margin-top:0px;
+    color:#252C41;
+    opacity:0.7;
 }
 
 .edit_project_btn:hover{
