@@ -36,3 +36,7 @@ Client id: 953222293456-1qcl3fli66a03d61h72fuelts2flod8q.apps.googleusercontent.
 Secret key: 7gjciAPucNs3LwQD8oAB2v7_
 Sites: 왼쪽의 127.0.0.1:8000 더블클릭 => 오른쪽으로 이동
 Save
+
+-----------------------------------------------------------------------
+mySQL 실행
+python manage.py dbshell

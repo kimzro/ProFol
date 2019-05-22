@@ -4,6 +4,7 @@
 <head>
     <link rel="stylesheet" href="{% static 'project_app/css/mng.css' %}">
     <link rel="stylesheet" href="{% static 'project_app/css/mng_project.css' %}">
+    <link rel="stylesheet" href="{% static 'project_app/css/modal.css' %}">
 </head>
 <body>
     <div class="nav">
@@ -90,9 +91,9 @@
                 <img src="{% static 'project_app/image/icons/group.png' %}" class="member_icon">
                 {%for u in user_list%}
                 {% if u.socialaccount_set.all.0.get_avatar_url %}
-                    <img src="{{ u.socialaccount_set.all.0.get_avatar_url }}" class="profile_photo"/>
+                    <img src="{{ u.socialaccount_set.all.0.get_avatar_url }}" class="profile_icon"/>
                 {% else %}
-                    <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_photo">
+                    <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_icon">
                 {% endif %}
                 {% endfor %}
             </div>
@@ -111,7 +112,22 @@
             <img src="{% static 'project_app/image/icons/add_sched.png' %}" style="height:2.5em">
         </div>
         <hr style="width:100%;">
-        <p class="edit_project_btn">프로젝트 수정</p>
+<!--        <p class="edit_project_btn">프로젝트 완료</p>-->
+
+        <div class="edit_project_btn">
+            <a class="button" href="#popup1">프로젝트 완료</a>
+        </div>
+
+        <div id="popup1" class="overlay">
+            <div class="popup">
+                <a class="close" href="#">취소</a>
+                <a class="close" href="#">확인</a>
+                <div class="content">
+                    프로젝트를 완료하시겠습니까?
+                </div>
+            </div>
+        </div>
+
     </div>
 </body>
 </html>
