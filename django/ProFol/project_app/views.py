@@ -40,9 +40,9 @@ def mng_personal(request):
 
     participation_team = list(set(participation_team))
 
-    project_list = Project.objects.filter(author=request.user)
+    project_list = Project.objects.filter(author=request.user, status=False)
     for team in participation_team:
-        project_list |= Project.objects.filter(participation=team)
+        project_list |= Project.objects.filter(participation=team, status=False)
 
 
     todo_list = Todo.objects.filter(author=request.user)
@@ -109,9 +109,9 @@ def mng_project(request, pk):
 
     participation_team = list(set(participation_team))
 
-    project_list = Project.objects.filter(author=request.user)
+    project_list = Project.objects.filter(author=request.user, status=False)
     for team in participation_team:
-        project_list |= Project.objects.filter(participation=team)
+        project_list |= Project.objects.filter(participation=team, status=False)
 
     pk_project = Project.objects.get(pk=pk)
 
@@ -150,9 +150,9 @@ def mng_part(request,pk,category_title):
 
     participation_team = list(set(participation_team))
 
-    project_list = Project.objects.filter(author=request.user)
+    project_list = Project.objects.filter(author=request.user, status=False)
     for team in participation_team:
-        project_list |= Project.objects.filter(participation=team)
+        project_list |= Project.objects.filter(participation=team, status=False)
 
     pk_project = Project.objects.get(pk=pk)
     pk_category = Category.objects.get(title=category_title)
@@ -278,14 +278,16 @@ def finish_todo(request, todo_pk):
     done_todo.status = True
     done_todo.save()
 
+    project = done_todo.project
+    category = done_todo.category
+
     tag_title = done_todo.tag
     try:
-        tag = Tag.objects.get(title=tag_title, user=request.user)
+        tag = Tag.objects.get(title=tag_title, user=request.user, project=project, category=category)
     except Tag.DoesNotExist:
         tag = None
 
     if tag is not None:
-        print("is not None")
         tag.score += 1
         tag.save()
     else:
@@ -302,9 +304,12 @@ def finish_todo_part(request,pk,category_title, todo_pk):
     done_todo.status = True
     done_todo.save()
 
+    project = done_todo.project
+    category = done_todo.category
+
     tag_title = done_todo.tag
     try:
-        tag = Tag.objects.get(title=tag_title, user=request.user)
+        tag = Tag.objects.get(title=tag_title, user=request.user, project=project, category=category)
     except Tag.DoesNotExist:
         tag = None
 
