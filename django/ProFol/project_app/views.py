@@ -158,7 +158,8 @@ def mng_part(request,pk,category_title):
     pk_project = Project.objects.get(pk=pk)
     pk_category = Category.objects.get(title=category_title)
 
-    todo_list = Todo.objects.filter(project=pk_project, category=pk_category, author=request.user)
+    # edit - for user todo_list, author = request.user
+    todo_list = Todo.objects.filter(project=pk_project, category=pk_category)
 
     countList = []
     notFinishedCount = 0
