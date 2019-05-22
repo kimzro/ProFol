@@ -77,7 +77,21 @@
             </div>
             <div class="group">
                 <img src="{% static 'project_app/image/icons/group.png' %}" class="opacity07 icon_in_card">
-                dfdfef
+                {% if pk_project.participation is not None %}
+                    {% for u in pk_project.participation.participation.all %}
+                            {% if u.socialaccount_set.all.0.get_avatar_url %}
+                                <img src="{{ u.socialaccount_set.all.0.get_avatar_url }}" class="profile_photo"/>
+                            {% else %}
+                                <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_photo">
+                            {% endif %}
+                    {% endfor %}
+                {%else%}
+                    {% if user.socialaccount_set.all.0.get_avatar_url %}
+                        <img src="{{ user.socialaccount_set.all.0.get_avatar_url }}" class="profile_photo"/>
+                    {% else %}
+                        <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_photo">
+                    {% endif %}
+                {% endif %}
             </div>
             <div class="dday">
                 {% for todo_dday_key, todo_dday_value in todo_list_dday.items %}
@@ -129,7 +143,21 @@
             </div>
             <div class="group">
                 <img src="{% static 'project_app/image/icons/group.png' %}" class="opacity07 icon_in_card">
-                dfdfef
+                {% if pk_project.participation is not None %}
+                    {% for u in pk_project.participation.participation.all %}
+                            {% if u.socialaccount_set.all.0.get_avatar_url %}
+                                <img src="{{ u.socialaccount_set.all.0.get_avatar_url }}" class="profile_photo"/>
+                            {% else %}
+                                <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_photo">
+                            {% endif %}
+                    {% endfor %}
+                {%else%}
+                    {% if user.socialaccount_set.all.0.get_avatar_url %}
+                        <img src="{{ user.socialaccount_set.all.0.get_avatar_url }}" class="profile_photo"/>
+                    {% else %}
+                        <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_photo">
+                    {% endif %}
+                {% endif %}
             </div>
             <div class="dday">
                 {% for todo_dday_key, todo_dday_value in todo_list_dday.items %}

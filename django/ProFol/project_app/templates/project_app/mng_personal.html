@@ -68,14 +68,14 @@
         <!-- Card -->
         {% for project in project_list %}
 
-        {% for prjName, todoCnt in project_todo_list.items%}
-        {% if prjName == project %}
-        {% if todoCnt.0 != 0 %}
-        <Br><img src="{% static 'project_app/image/icons/project2.png' %}" class="subtitle_icon">
-        <p>{{project}}</p>
-        {% endif %}
-        {% endif %}
-        {% endfor %}
+            {% for prjName, todoCnt in project_todo_list.items%}
+                {% if prjName == project %}
+                    {% if todoCnt.0 != 0 %}
+                        <Br><img src="{% static 'project_app/image/icons/project2.png' %}" class="subtitle_icon">
+                        <p>{{project}}</p>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
 
         {% for todo in project.todo_set.all %}
         {% if todo.status is False %}
@@ -86,7 +86,21 @@
             </div>
             <div class="group">
                 <img src="{% static 'project_app/image/icons/group.png' %}" class="opacity07 icon_in_card">
-                dfdfef
+                {% if project.participation is not None %}
+                    {% for u in project.participation.participation.all %}
+                            {% if u.socialaccount_set.all.0.get_avatar_url %}
+                                <img src="{{ u.socialaccount_set.all.0.get_avatar_url }}" class="profile_photo"/>
+                            {% else %}
+                                <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_photo">
+                            {% endif %}
+                    {% endfor %}
+                {%else%}
+                    {% if user.socialaccount_set.all.0.get_avatar_url %}
+                        <img src="{{ user.socialaccount_set.all.0.get_avatar_url }}" class="profile_photo"/>
+                    {% else %}
+                        <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_photo">
+                    {% endif %}
+                {% endif %}
             </div>
             <div class="dday">
                 {% for todo_dday_key, todo_dday_value in todo_list_dday.items %}
@@ -148,7 +162,21 @@
             </div>
             <div class="group">
                 <img src="{% static 'project_app/image/icons/group.png' %}" class="opacity07 icon_in_card">
-                dfdfef
+                {% if project.participation is not None %}
+                    {% for u in project.participation.participation.all %}
+                            {% if u.socialaccount_set.all.0.get_avatar_url %}
+                                <img src="{{ u.socialaccount_set.all.0.get_avatar_url }}" class="profile_photo"/>
+                            {% else %}
+                                <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_photo">
+                            {% endif %}
+                    {% endfor %}
+                {%else%}
+                    {% if user.socialaccount_set.all.0.get_avatar_url %}
+                        <img src="{{ user.socialaccount_set.all.0.get_avatar_url }}" class="profile_photo"/>
+                    {% else %}
+                        <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_photo">
+                    {% endif %}
+                {% endif %}
             </div>
             <div class="dday">
                 <!-- 수정 todo_dday_key==todo에서 name으로 찾기, and pk도 비교해야함 -->
