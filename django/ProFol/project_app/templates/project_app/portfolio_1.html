@@ -26,9 +26,11 @@
             <div class="projects">
                 Projects<br>
                 {% for project in project_list %}
+                {% if project.status %}
                 <div class="project_card" onclick="location.href='/app/portfolio_detail/{{project.pk}}'">
                     {{project}}
                 </div>
+                {% endif %}
                 {% endfor %}
             </div>
         </div>

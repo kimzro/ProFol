@@ -28,7 +28,23 @@ def mng_login(request):
 
 def mng_personal(request):
 
+    project_list_all = Project.objects.all()
+
+    participation_team = []
+    for project in project_list_all:
+        if project.participation is not None:
+            team = project.participation
+            for participation in team.participation.all():
+                if participation == request.user:
+                    participation_team.append(team)
+
+    participation_team = list(set(participation_team))
+
     project_list = Project.objects.filter(author=request.user)
+    for team in participation_team:
+        project_list |= Project.objects.filter(participation=team)
+
+
     todo_list = Todo.objects.filter(author=request.user)
 
     project_todo_list = {}
@@ -81,7 +97,22 @@ def mng_personal(request):
     return render(request, 'project_app/mng_personal.html', context)
 
 def mng_project(request, pk):
+    project_list_all = Project.objects.all()
+
+    participation_team = []
+    for project in project_list_all:
+        if project.participation is not None:
+            team = project.participation
+            for participation in team.participation.all():
+                if participation == request.user:
+                    participation_team.append(team)
+
+    participation_team = list(set(participation_team))
+
     project_list = Project.objects.filter(author=request.user)
+    for team in participation_team:
+        project_list |= Project.objects.filter(participation=team)
+
     pk_project = Project.objects.get(pk=pk)
     category_list = pk_project.category.all()
 
@@ -95,7 +126,22 @@ def mng_project(request, pk):
     return render(request, 'project_app/mng_project.html', context)
 
 def mng_part(request,pk,category_title):
+    project_list_all = Project.objects.all()
+
+    participation_team = []
+    for project in project_list_all:
+        if project.participation is not None:
+            team = project.participation
+            for participation in team.participation.all():
+                if participation == request.user:
+                    participation_team.append(team)
+
+    participation_team = list(set(participation_team))
+
     project_list = Project.objects.filter(author=request.user)
+    for team in participation_team:
+        project_list |= Project.objects.filter(participation=team)
+
     pk_project = Project.objects.get(pk=pk)
     pk_category = Category.objects.get(title=category_title)
     todo_list = Todo.objects.filter(project=pk_project, category=pk_category)
@@ -128,7 +174,21 @@ def mng_part(request,pk,category_title):
 
 # portfolio_1.html1
 def user_portfolio(request):
+    project_list_all = Project.objects.all()
+
+    participation_team = []
+    for project in project_list_all:
+        if project.participation is not None:
+            team = project.participation
+            for participation in team.participation.all():
+                if participation == request.user:
+                    participation_team.append(team)
+
+    participation_team = list(set(participation_team))
+
     project_list = Project.objects.filter(author=request.user)
+    for team in participation_team:
+        project_list |= Project.objects.filter(participation=team)
 
     try:
         userPortfolio = UserPortfolio.objects.get(author = request.user)

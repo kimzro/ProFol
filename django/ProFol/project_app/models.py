@@ -5,6 +5,10 @@ from markdownx.utils import markdown
 
 
 # Create your models here.
+class Team(models.Model):
+    status = models.BooleanField(default=False)
+    participation = models.ManyToManyField(User, blank=True)
+
 class UserPortfolio(models.Model):
     # 수정: 한개만 저장할 수 있도록!!
     author = models.ForeignKey(User, on_delete=True)
@@ -30,6 +34,7 @@ class Project(models.Model):
     end_date = models.DateField()
     prj_image = models.ImageField(upload_to="blog/project/%y/%m/%d", blank=True)
     author = models.ForeignKey(User, on_delete=True)
+    participation = models.ForeignKey(Team, blank=True, on_delete=models.SET(None), null=True)
     category = models.ManyToManyField(Category, blank=True) # Part
 
     def __str__(self):
