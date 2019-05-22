@@ -114,6 +114,18 @@ def mng_project(request, pk):
         project_list |= Project.objects.filter(participation=team)
 
     pk_project = Project.objects.get(pk=pk)
+
+    user_list = []
+    user_list.append(request.user)
+    if pk_project.participation is not None:
+        team = pk_project.participation
+        for participation in team.participation.all():
+            user_list.append(participation)
+    user_list = list(set(user_list))
+
+    for user in user_list:
+        print(user)
+
     category_list = pk_project.category.all()
 
     now = timezone.localdate()
@@ -122,7 +134,7 @@ def mng_project(request, pk):
     project_dday = project_dday.split(',')[0]
     project_dday = project_dday.split('d')[0]   # Ndays
 
-    context = {'project_list': project_list, 'pk_project': pk_project, 'category_list': category_list, 'project_dday':project_dday}
+    context = {'project_list': project_list, 'pk_project': pk_project, 'category_list': category_list, 'project_dday':project_dday, 'user_list':user_list}
     return render(request, 'project_app/mng_project.html', context)
 
 def mng_part(request,pk,category_title):

@@ -88,13 +88,13 @@
             </div>
             <div class="member_area">
                 <img src="{% static 'project_app/image/icons/group.png' %}" class="member_icon">
-                <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_icon">
-                <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_icon">
-                <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_icon">
-                <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_icon">
-                <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_icon">
-                <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_icon">
-                <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_icon">
+                {%for u in user_list%}
+                {% if u.socialaccount_set.all.0.get_avatar_url %}
+                    <img src="{{ u.socialaccount_set.all.0.get_avatar_url }}" class="profile_photo"/>
+                {% else %}
+                    <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_photo">
+                {% endif %}
+                {% endfor %}
             </div>
         </div>
         <div class="card sched">
