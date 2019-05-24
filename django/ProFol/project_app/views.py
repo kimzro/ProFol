@@ -225,8 +225,8 @@ def user_portfolio(request):
 def user_portfolio_detail(request, pk):
     pk_project = Project.objects.get(pk=pk)
     score = 5
-    todo_list = Todo.objects.filter(project = pk_project)
-    todo_list_count = Todo.objects.filter(project = pk_project).count()
+    todo_list = Todo.objects.filter(project = pk_project, author = request.user)
+    todo_list_count = Todo.objects.filter(project = pk_project, author = request.user).count()
 
     # if Todo_list's count is 0
     if todo_list_count == 0:
