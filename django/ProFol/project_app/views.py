@@ -266,6 +266,13 @@ def user_portfolio_detail(request, pk):
     context = {'pk_project':pk_project, 'score':score, "todo_dict":todo_dict, "tag_dict":tag_dict}
     return render(request, 'project_app/portfolio_2.html', context)
 
+
+# project_edit.html
+def edit_project_form(request,pk):
+    pk_project = Project.objects.get(pk=pk)
+    context={'pk_project':pk_project}
+    return render(request, 'project_app/project_edit.html', context)
+
 # portfolio_edit.html
 def edit_userportfolio_form(request):
     userPortfolioForm = UserPortfolioForm()
