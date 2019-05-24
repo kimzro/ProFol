@@ -5,60 +5,54 @@
     <link rel="stylesheet" href="{% static 'project_app/css/mng.css' %}">
 </head>
 <body>
-    <div class="nav">
+        <div class="nav" >
+            <div class="nav_header">
+                <img src="{% static 'project_app/image/ProFol2.png' %}" class="nav_header_logo">
+<!--                <img src="{% static 'project_app/image/icons/message.png' %}" class="nav_header_icon">-->
+<!--                <img src="{% static 'project_app/image/icons/setting.png' %}" class="nav_header_icon">-->
+<!--                <img src="{% static 'project_app/image/icons/alarm.png' %}" class="nav_header_icon">-->
+                <img src="{% static 'project_app/image/icons/hamburger_icon.png' %}" class="nav_header_icon">
+            </div><br><Br>
 
-        <div class="nav_header">
-            <img src="{% static 'project_app/image/icons/message.png' %}" class="nav_header_icon">
-            <img src="{% static 'project_app/image/icons/setting.png' %}" class="nav_header_icon">
-            <img src="{% static 'project_app/image/icons/alarm.png' %}" class="nav_header_icon">
-        </div>
-
-        <div class="profile">
-            {% if user.socialaccount_set.all.0.get_avatar_url %}
-            <img src="{{ user.socialaccount_set.all.0.get_avatar_url }}" class="profile_photo"/>
-            {% else %}
-            <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_photo">
-            {% endif %}
-            <p style="color:white; opacity:1; display:inline-block;" class="profile_text">
-                <a onclick="location.href='/app/'" style="font-size: 0.8em">{{user}}</a><br>
-                <a style="font-size: 0.5em">{{user.email}}</a><br>
-                <img src="{% static 'project_app/image/icons/profile_btn.png' %}"
-                    onmouseover="this.src='{% static 'project_app/image/icons/profile_btn_yellow.png' %}'"
-                     onmouseout="this.src='{% static 'project_app/image/icons/profile_btn.png'%} '"
-                     onclick="window.open('/app/portfolio/')"
-                     class="profile_btn">
-            </p>
-        </div>
-
-        <div class="menu">
-            {% for project in project_list %}
-            <img src="{% static 'project_app/image/icons/project_white.png' %}" style="width:6.5%">
-                <a href="{{project.get_absolute_url}}">
-                    <h2>{{ project }}</h2>
-                </a>
-            <ul>
-                {% for category in project.category.all %}
-                {% if project == pk_project and category == pk_category %}
-                <li class="menu_item selected_menu">
-                    <img src="{% static 'project_app/image/icons/part.png' %}" style="width:6.5%">
-                    <a href="/app/{{project.pk}}/{{category}}/">
-                        <h2 style="color:#252C41">{{category}}</h2>
-                    </a>
-                </li>
+            <div class="profile">
+                {% if user.socialaccount_set.all.0.get_avatar_url %}
+                <img src="{{ user.socialaccount_set.all.0.get_avatar_url }}" class="profile_photo"/>
                 {% else %}
-                <li class="menu_item">
-                    <img src="{% static 'project_app/image/icons/part_white.png' %}" style="width:6.5%">
-                    <a href="/app/{{project.pk}}/{{category}}/">
-                        <h2>{{category}}</h2>
-                    </a>
-                </li>
+                <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_photo">
                 {% endif %}
+                <p style="color:white; opacity:1; display:inline-block;" class="profile_text">
+                    <a onclick="location.href='/app/'" style="font-size: 0.8em">{{user}}</a><br>
+                    <a style="font-size: 0.5em">{{user.email}}</a><br>
+                    <img src="{% static 'project_app/image/icons/profile_btn.png' %}"
+                         onmouseover="this.src='{% static 'project_app/image/icons/profile_btn_yellow.png' %}'"
+                         onmouseout="this.src='{% static 'project_app/image/icons/profile_btn.png' %}'"
+                         onclick="window.open('/app/portfolio/')"
+                         class="profile_btn">
+                </p>
+            </div>
+
+            <div class="menu">
+                {% for project in project_list %}
+                <div class="menu_item">
+                    <img src="{% static 'project_app/image/icons/project_white.png' %}" style="width:6.5%">
+                    <a href="{{project.get_absolute_url}}">
+                        <h2>{{ project }}</h2>
+                    </a>
+                </div>
+                <ul>
+                    {% for category in project.category.all %}
+                    <li class="menu_item">
+                        <img src="{% static 'project_app/image/icons/part_white.png' %}" style="width:6.5%">
+                        <a href="/app/{{project.pk}}/{{category}}/">
+                            <h2>{{category}}</h2>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
                 {% endfor %}
-            </ul>
-            {% endfor %}
-        </div>
+            </div>
                 <br><br><br><br><br><br><br><br><br><br><br><br>
-    </div>
+        </div>
 
     <div class="wrapper">
 

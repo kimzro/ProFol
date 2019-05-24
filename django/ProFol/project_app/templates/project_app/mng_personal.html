@@ -4,14 +4,34 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{% static 'project_app/css/mng.css' %}">
+    <link rel="stylesheet" href="{% static 'project_app/css/dropdown.css' %}">
 </head>
 <body>
     <div class="nav" >
             <div class="nav_header">
-                <img src="{% static 'project_app/image/icons/message.png' %}" class="nav_header_icon" onclick="location.href='/app/email_send/'">
-                <img src="{% static 'project_app/image/icons/setting.png' %}" class="nav_header_icon">
-                <img src="{% static 'project_app/image/icons/alarm.png' %}" class="nav_header_icon">
-            </div>
+                <img src="{% static 'project_app/image/ProFol2.png' %}" class="nav_header_logo">
+<!--                <img src="{% static 'project_app/image/icons/message.png' %}" class="nav_header_icon">-->
+<!--                <img src="{% static 'project_app/image/icons/setting.png' %}" class="nav_header_icon">-->
+<!--                <img src="{% static 'project_app/image/icons/alarm.png' %}" class="nav_header_icon">-->
+
+            <nav role="navigation">
+                <div id="menuToggle">
+                    <input type="checkbox" />
+
+                    <img src="{% static 'project_app/image/icons/hamburger_icon.png' %}" class="nav_header_icon">
+
+                        <ul id="menu">
+                            <img src="{% static 'project_app/image/icons/close_icon.png' %}" class="close_icon">
+                            <br><br>
+                            <a href="#" class="menu_in_hamburger"><li>프로필 설정</li></a>
+                            <a href="#" class="menu_in_hamburger"><li>이용약관</li></a>
+                            <a href="#" class="menu_in_hamburger"><li>고객센터</li></a>
+                            <a href="#" class="menu_in_hamburger"><li>Sign Out</li></a>
+                        </ul>
+                </div>
+            </nav>
+            </div><br><Br>
+>>>>>>> 80a2340d83fcf10cc6354b7c30e1b46d0e13042d
 
             <div class="profile">
                 {% if user.socialaccount_set.all.0.get_avatar_url %}
