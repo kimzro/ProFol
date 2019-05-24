@@ -57,23 +57,6 @@ def mng_personal(request):
 
     project_todo_list = {}
 
-    # for project in project_list:
-    #     project_todo_list_finished = []
-    #     project_todo_list_not_finished = []
-    #     for todo in project.todo_set.all():
-    #         if todo.status==False:
-    #             project_todo_list_not_finished.append(todo)
-    #         else:
-    #             project_todo_list_finished.append(todo)
-    #
-    #     if len(project_todo_list_finished) != 0 and len(project_todo_list_not_finished) != 0:
-    #         project_todo_list[project] = {}
-    #     if len(project_todo_list_finished) != 0:
-    #         project_todo_list[project]["finished"] = project_todo_list_finished
-    #     if len(project_todo_list_not_finished) != 0:
-    #         project_todo_list[project]["not_finished"] = project_todo_list_not_finished
-
-
     # project's todolist counting
     finishedCountValue = 0
     for project in project_list:
@@ -81,9 +64,9 @@ def mng_personal(request):
         notFinishedCount = 0;
         countList = []
         for todo in project.todo_set.all():
-            if todo.status == True:
+            if (todo.status == True) and (todo.author==request.user):
                 finishedCount += 1
-            else:
+            elif (todo.status == False) and (todo.author==request.user):
                 notFinishedCount += 1
         countList.append(notFinishedCount)
         countList.append(finishedCount)
