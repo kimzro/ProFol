@@ -3,15 +3,32 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="{% static 'project_app/css/mng.css' %}">
+    <link rel="stylesheet" href="{% static 'project_app/css/dropdown.css' %}">
 </head>
 <body>
-        <div class="nav" >
+           <div class="nav" >
             <div class="nav_header">
                 <img src="{% static 'project_app/image/ProFol2.png' %}" class="nav_header_logo">
 <!--                <img src="{% static 'project_app/image/icons/message.png' %}" class="nav_header_icon">-->
 <!--                <img src="{% static 'project_app/image/icons/setting.png' %}" class="nav_header_icon">-->
 <!--                <img src="{% static 'project_app/image/icons/alarm.png' %}" class="nav_header_icon">-->
-                <img src="{% static 'project_app/image/icons/hamburger_icon.png' %}" class="nav_header_icon">
+
+            <nav role="navigation">
+                <div id="menuToggle">
+                    <input type="checkbox" />
+
+                    <img src="{% static 'project_app/image/icons/hamburger_icon.png' %}" class="nav_header_icon">
+
+                        <ul id="menu">
+                            <img src="{% static 'project_app/image/icons/close_icon.png' %}" class="close_icon">
+                            <br><br>
+                            <a href="#" class="menu_in_hamburger"><li>프로필 설정</li></a>
+                            <a href="#" class="menu_in_hamburger"><li>이용약관</li></a>
+                            <a href="#" class="menu_in_hamburger"><li>고객센터</li></a>
+                            <a href="#" class="menu_in_hamburger"><li>Sign Out</li></a>
+                        </ul>
+                </div>
+            </nav>
             </div><br><Br>
 
             <div class="profile">
