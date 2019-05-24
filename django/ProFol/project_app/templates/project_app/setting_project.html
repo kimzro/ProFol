@@ -92,63 +92,9 @@
             <h1>{{pk_project}}</h1>
             <p>{{pk_project.start_date}} ~ {{pk_project.end_date}}</p>
         </div>
-        <div class="card">
-            <div class="circle">
-                <div class="dday_txt_area">
-                    D-{{project_dday}}
-                </div>
-            </div>
-            <div class="part_area">
-                {% for category in category_list %}
-                <div class="parts">
-                    <img src="{% static 'project_app/image/icons/part.png' %}" class="part_icon"
-                    onclick="location.href='/app/{{pk_project.pk}}/{{category}}/'"><br>
-                    {{category}}
-                </div>
-                {% endfor %}
-
-            </div>
-            <div class="member_area">
-                <img src="{% static 'project_app/image/icons/group.png' %}" class="member_icon">
-                {%for u in user_list%}
-                {% if u.socialaccount_set.all.0.get_avatar_url %}
-                    <img src="{{ u.socialaccount_set.all.0.get_avatar_url }}" class="profile_icon"/>
-                {% else %}
-                    <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_icon">
-                {% endif %}
-                {% endfor %}
-            </div>
-        </div>
-        <div class="card sched">
-            <img src="{% static 'project_app/image/icons/time.png' %}" style="opacity:0.7" class="sched_icon">
-            <a class="sched_title">팀회의</a>
-            <a class="sched_detail">19.03.14 15:00 ICT301</a>
-        </div>
-        <div class="card sched">
-            <img src="{% static 'project_app/image/icons/time.png' %}" style="opacity:0.7" class="sched_icon">
-            <a class="sched_title">팀회의</a>
-            <a class="sched_detail">19.03.14 15:00 ICT301</a>
-        </div>
-        <div class="add_sched">
-            <img src="{% static 'project_app/image/icons/add_sched.png' %}" style="height:2.5em">
-        </div>
-        <hr style="width:100%;">
-<!--        <p class="edit_project_btn">프로젝트 완료</p>-->
-
-        <div class="edit_project_btn">
-            <a href="#popup1" style="color:#252C41">프로젝트 설정</a>
-        </div>
-
-        <div id="popup1" class="overlay">
-            <div class="popup">
-                <a class="close" href="#">취소</a>
-                <a class="close" href="/app/project_done/{{pk_project.pk}}/">확인</a>
-                <div class="content">
-                    프로젝트를 완료하시겠습니까?
-                </div>
-            </div>
-        </div>
-
+        Setting<br>
+        팀원 초대하기<br>
+        프로젝트 완료<br>
     </div>
 </body>
 </html>

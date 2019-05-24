@@ -1,6 +1,39 @@
-<form method="POST" action="/app/email_send/{{pk_project.pk}}/">
-    {%csrf_token%}
-    E-mail: <input type="email" name="emailaddress">
-    <!--<input type="hidden" name="project" value="{{pk_project}}">-->
-    <button type="submit" class="create_btn">확인</button>
-</form>
+
+
+{% load static %}
+{% load socialaccount %}
+<html>
+<head>
+    <style type="text/css">
+        body{
+            background-color: #252C41;
+            margin:0;
+            padding:0;
+            text-align: center;
+        }
+        .wrapper{
+            margin-top:140px;
+            font-size:17px;
+            color:white;
+            font-weight:bold;
+        }
+        .func_title{
+            font-size:20px;
+            display:block;
+            margin-bottom: 24px;
+            color:#F9C00C;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <a class="func_title">팀원 초대하기</a>
+        <form method="POST" action="/app/email_send/{{pk_project.pk}}/">
+            {%csrf_token%}
+            E-mail: <input type="email" name="emailaddress">
+            <!--<input type="hidden" name="project" value="{{pk_project}}">-->
+            <button type="submit" class="create_btn">확인</button>
+        </form>
+    </div>
+</body>
+</html>
