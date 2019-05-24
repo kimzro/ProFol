@@ -299,7 +299,6 @@ def finish_todo(request, todo_pk):
     else:
         print("else")
 
-
     redirectAddr = '/app/' + '#card-finished-' + str(todo_pk)
     return redirect(redirectAddr)
 
@@ -323,10 +322,16 @@ def finish_todo_part(request,pk,category_title, todo_pk):
         tag.score+=1
         tag.save()
 
-
     redirectAddr = '/app/' + str(pk) + "/" + category_title + "/" + "#card-finished-" + str(todo_pk)
     return redirect(redirectAddr)
 
+# mng_project.html 에서 project complete btn 적용
+def finish_project(request, pk):
+    project = Project.objects.get(pk = pk)
+    project.status = True
+    project.save()
+    redirectAddr = '/app/'
+    return redirect(redirectAddr)
 
 def create_project_form(request):
     project_form = ProjectForm()
@@ -341,12 +346,10 @@ def create_todo_form(request, pk, category_title):
     return render(request, 'project_app/create_todo.html', context)
 
 def create_project(request):
-
+    print("========================def:create_project========================")
     if request.method == "POST":
-        print("request.method==POST")
         project_form = ProjectForm(request.POST)    # Instance
         if project_form.is_valid():
-            print("project_form.is_valid")
             project = project_form.save(commit=False)
             project.author = request.user
             project.save()
@@ -357,6 +360,7 @@ def create_project(request):
         return redirect('/app/')
 
 def create_todo(request, pk, category_title):
+    print("========================def:create_todo========================")
     start_date = timezone.localdate()
     project = Project.objects.get(pk=pk)
     category = Category.objects.get(title=category_title)
@@ -367,14 +371,18 @@ def create_todo(request, pk, category_title):
             todo = todo_form.save(commit=False)
 
             # create Tag - if Tag is exist then no create
-            tag_title = todo.tag
-            try:
-                tag = Tag.objects.get(title=tag_title, project=project, category=category, user=request.user)
-            except Tag.DoesNotExist:
-                tag = None
-            if tag is None:
-                tag = Tag(title=tag_title, project=project, category=category, user=request.user)
-                tag.save()
+            # if blank then todo.tag = None
+            if todo.tag!="":
+                tag_title = todo.tag
+                try:
+                    tag = Tag.objects.get(title=tag_title, project=project, category=category, user=request.user)
+                except Tag.DoesNotExist:
+                    tag = None
+                if tag is None:
+                    tag = Tag(title=tag_title, project=project, category=category, user=request.user)
+                    tag.save()
+            else:
+                todo.tag = None
 
             todo.author = request.user
             todo.start_date = start_date
