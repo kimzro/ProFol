@@ -75,6 +75,7 @@ a:hover{
     float:right;
     right:6.3%;
     top:10px;
+    /*z-index:1;*/
 }
 .profile{
     position: relative;
