@@ -270,7 +270,25 @@ def user_portfolio_detail(request, pk):
 # project_edit.html
 def edit_project_form(request,pk):
     pk_project = Project.objects.get(pk=pk)
-    context={'pk_project':pk_project}
+    project_list_all = Project.objects.all()
+
+    participation_team = []
+    for project in project_list_all:
+        if project.participation is not None:
+            team = project.participation
+            for participation in team.participation.all():
+                if participation == request.user:
+                    participation_team.append(team)
+
+    participation_team = list(set(participation_team))
+
+    category_list = pk_project.category.all()
+
+    project_list = Project.objects.filter(author=request.user, status=False)
+    for team in participation_team:
+        project_list |= Project.objects.filter(participation=team, status=False)
+
+    context = {'project_list': project_list, 'pk_project': pk_project, 'category_list': category_list}
     return render(request, 'project_app/project_edit.html', context)
 
 # portfolio_edit.html
