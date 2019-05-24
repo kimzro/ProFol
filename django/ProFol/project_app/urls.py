@@ -24,6 +24,7 @@ urlpatterns = [
     path('app/create_project/', views.create_project),
     path('app/<int:pk>/<str:category_title>/create_todo_form/', views.create_todo_form),
     path('app/<int:pk>/<str:category_title>/create_todo/', views.create_todo),
+    path('app/<int:pk>/edit_project/edit_project_form/', views.edit_project_form),
 
     # finish_todo - redirection
     path('app/done/<int:todo_pk>', views.finish_todo),

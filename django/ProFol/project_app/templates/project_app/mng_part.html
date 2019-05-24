@@ -48,26 +48,33 @@
                 </p>
             </div>
 
-            <div class="menu">
-                {% for project in project_list %}
-                <div class="menu_item">
-                    <img src="{% static 'project_app/image/icons/project_white.png' %}" style="width:6.5%">
-                    <a href="{{project.get_absolute_url}}">
-                        <h2>{{ project }}</h2>
+        <div class="menu">
+            {% for project in project_list %}
+            <img src="{% static 'project_app/image/icons/project_white.png' %}" style="width:6.5%">
+                <a href="{{project.get_absolute_url}}">
+                    <h2>{{ project }}</h2>
+                </a>
+            <ul>
+                {% for category in project.category.all %}
+                {% if project == pk_project and category == pk_category %}
+                <li class="menu_item selected_menu">
+                    <img src="{% static 'project_app/image/icons/part.png' %}" style="width:6.5%">
+                    <a href="/app/{{project.pk}}/{{category}}/">
+                        <h2 style="color:#252C41">{{category}}</h2>
                     </a>
-                </div>
-                <ul>
-                    {% for category in project.category.all %}
-                    <li class="menu_item">
-                        <img src="{% static 'project_app/image/icons/part_white.png' %}" style="width:6.5%">
-                        <a href="/app/{{project.pk}}/{{category}}/">
-                            <h2>{{category}}</h2>
-                        </a>
-                    </li>
-                    {% endfor %}
-                </ul>
+                </li>
+                {% else %}
+                <li class="menu_item">
+                    <img src="{% static 'project_app/image/icons/part_white.png' %}" style="width:6.5%">
+                    <a href="/app/{{project.pk}}/{{category}}/">
+                        <h2>{{category}}</h2>
+                    </a>
+                </li>
+                {% endif %}
                 {% endfor %}
-            </div>
+            </ul>
+            {% endfor %}
+        </div>
                 <br><br><br><br><br><br><br><br><br><br><br><br>
         </div>
 
