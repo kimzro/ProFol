@@ -5,16 +5,17 @@
     <link rel="stylesheet" href="{% static 'project_app/css/mng.css' %}">
     <link rel="stylesheet" href="{% static 'project_app/css/mng_project.css' %}">
     <link rel="stylesheet" href="{% static 'project_app/css/modal.css' %}">
-        <link rel="stylesheet" href="{% static 'project_app/css/dropdown.css' %}">
+    <link rel="stylesheet" href="{% static 'project_app/css/dropdown.css' %}">
+    <style>
+        hr{
+            margin-top:24px;
+        }
+    </style>
 </head>
 <body>
        <div class="nav" >
             <div class="nav_header">
                 <img src="{% static 'project_app/image/ProFol2.png' %}" class="nav_header_logo">
-<!--                <img src="{% static 'project_app/image/icons/message.png' %}" class="nav_header_icon">-->
-<!--                <img src="{% static 'project_app/image/icons/setting.png' %}" class="nav_header_icon">-->
-<!--                <img src="{% static 'project_app/image/icons/alarm.png' %}" class="nav_header_icon">-->
-
             <nav role="navigation">
                 <div id="menuToggle">
                     <input type="checkbox" />
@@ -81,20 +82,44 @@
                 </ul>
                 {% endfor %}
         </div>
-
-
-
                 <br><br><br><br><br><br><br><br><br><br><br><br>
         </div>
 
     <div class="wrapper">
         <div class="title">
             <h1>{{pk_project}}</h1>
-            <p>{{pk_project.start_date}} ~ {{pk_project.end_date}}</p>
+            <hr>
+            <p style="font-size:28px;">Setting</p>
         </div>
-        Setting<br>
-        팀원 초대하기<br>
-        프로젝트 완료<br>
+
+        <div id="popup1" class="overlay">
+            <div class="popup">
+                <a class="close" href="#">취소</a>
+                <a class="close" href="/app/project_done/{{pk_project.pk}}/">확인</a>
+                <div class="content">
+                    프로젝트를 완료하시겠습니까?
+                </div>
+            </div>
+        </div>
+
+        <ul style="padding:0;">
+            <li class="project_edit_menu">
+                <a style="color:#252C41">프로젝트 정보 수정</a>
+            </li>
+            <li class="project_edit_menu">
+                <a style="color:#252C41">팀원 초대</a>
+                <form method="POST" action="/app/email_send/{{pk_project.pk}}/" style="margin-top:8px;">
+                    {%csrf_token%}
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    E-mail: <input type="email" name="emailaddress">
+                    <!--<input type="hidden" name="project" value="{{pk_project}}">-->
+                    <button type="submit" class="create_btn">확인</button>
+                </form>
+            </li>
+            <li class="project_edit_menu">
+                <a href="#popup1" style="color:#252C41">프로젝트 완료</a>
+            </li>
+        </ul>
     </div>
 </body>
 </html>

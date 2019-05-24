@@ -11,10 +11,6 @@
        <div class="nav" >
             <div class="nav_header">
                 <img src="{% static 'project_app/image/ProFol2.png' %}" class="nav_header_logo">
-<!--                <img src="{% static 'project_app/image/icons/message.png' %}" class="nav_header_icon">-->
-<!--                <img src="{% static 'project_app/image/icons/setting.png' %}" class="nav_header_icon">-->
-<!--                <img src="{% static 'project_app/image/icons/alarm.png' %}" class="nav_header_icon">-->
-
             <nav role="navigation">
                 <div id="menuToggle">
                     <input type="checkbox" />
@@ -138,22 +134,6 @@
         <div class="edit_project_btn">
             <a href="edit_project/edit_project_form/" style="color:#252C41">프로젝트 설정</a>
         </div>
-
-        <!--복붙범위-->
-        <div class="edit_project_btn">
-            <a href="#popup1" style="color:#252C41">프로젝트 완료</a>
-        </div>
-
-        <div id="popup1" class="overlay">
-            <div class="popup">
-                <a class="close" href="#">취소</a>
-                <a class="close" href="/app/project_done/{{pk_project.pk}}/">확인</a>
-                <div class="content">
-                    프로젝트를 완료하시겠습니까?
-                </div>
-            </div>
-        </div>
-        <!--복붙범위-->
 
     </div>
 </body>
