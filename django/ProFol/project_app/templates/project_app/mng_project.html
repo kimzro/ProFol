@@ -50,18 +50,29 @@
                 </p>
             </div>
 
-            <div class="menu">
-                {% for project in project_list %}
-                <div class="menu_item">
+        <div class="menu">
+            {% for project in project_list %}
+
+                {% if project == pk_project %}
+                <div class="menu_item selected_menu">
+                    <img src="{% static 'project_app/image/icons/project.png' %}" style="width:6.5%">
+                    <a href="{{project.get_absolute_url}}">
+                        <h2 style="color:#252C41">{{ project }}</h2>
+                    </a>
+                </div>
+                            {% else %}
+                            <div class="menu_item">
                     <img src="{% static 'project_app/image/icons/project_white.png' %}" style="width:6.5%">
                     <a href="{{project.get_absolute_url}}">
                         <h2>{{ project }}</h2>
                     </a>
                 </div>
+                {% endif %}
+
                 <ul>
                     {% for category in project.category.all %}
                     <li class="menu_item">
-                        <img src="{% static 'project_app/image/icons/part_white.png' %}" style="width:6.5%">
+                                                <img src="{% static 'project_app/image/icons/part_white.png' %}" style="width:6.5%">
                         <a href="/app/{{project.pk}}/{{category}}/">
                             <h2>{{category}}</h2>
                         </a>
@@ -69,7 +80,10 @@
                     {% endfor %}
                 </ul>
                 {% endfor %}
-            </div>
+        </div>
+
+
+
                 <br><br><br><br><br><br><br><br><br><br><br><br>
         </div>
 
