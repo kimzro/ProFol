@@ -76,6 +76,10 @@ a:hover{
     position: relative;
     left:13.1%;
 }
+.profile_photo_in_card{
+    width:1.2em;
+    height:1.2em;
+}
 .profile_text{
     position: relative;
     left:15%;
