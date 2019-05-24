@@ -158,3 +158,13 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 # hj) setting for admin-site
 SITE_ID = 1
+
+
+# hj) setting for email SMTP
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = 'profolmanager95@gmail.com'
+EMAIL_HOST_PASSWORD = 'profol123'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

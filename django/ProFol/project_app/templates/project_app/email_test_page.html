@@ -1,0 +1,6 @@
+<form method="POST" action="/app/email_send/{{pk_project.pk}}/">
+    {%csrf_token%}
+    E-mail: <input type="email" name="emailaddress">
+    <!--<input type="hidden" name="project" value="{{pk_project}}">-->
+    <button type="submit" class="create_btn">확인</button>
+</form>
