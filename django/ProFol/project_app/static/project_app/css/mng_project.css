@@ -104,3 +104,16 @@
     cursor: pointer;
     opacity:1;
 }
+
+.project_edit_menu{
+    font-size:17px;
+    font-weight:bold;
+    margin-top:0px;
+    color:#252C41;
+    margin-top:24px;
+}
+
+.project_edit_menu:hover{
+    cursor: pointer;
+    opacity:1;
+}
