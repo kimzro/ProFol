@@ -59,11 +59,22 @@ a:hover{
     overflow-y:scroll;
 }
 .nav_header{
-    margin: 14px 4.5% 42px 54%;
+    //margin: 14px 4.5% 42px 54%;
+    margin: 24px 0% 68px 0%;
+}
+.nav_header_logo{
+    position:relative;
+    width:156px;
+    float:left;
+    left:6%;
 }
 .nav_header_icon{
-    width:26%;
+    position:relative;
+    width:33.42px;
     margin-right:3%;
+    float:right;
+    right:6.3%;
+    top:10px;
 }
 .profile{
     position: relative;
