@@ -104,13 +104,16 @@
                     {% endif %}
                 {% endfor %}
             </div>
-            <div class="complete">
-                <img src="{% static 'project_app/image/icons/check(empty).png' %}"
-                     onmouseover="this.src='{% static 'project_app/image/icons/check(full).png' %}'"
-                     onmouseout="this.src='{% static 'project_app/image/icons/check(empty).png' %}'"
-                     onclick="location.href='/app/{{pk_project.pk}}/{{pk_category}}/done/{{todo.pk}}'"
-                    style="width:100%">
-            </div>
+
+            {% if todo.author == user %}
+                <div class="complete">
+                    <img src="{% static 'project_app/image/icons/check(empty).png' %}"
+                         onmouseover="this.src='{% static 'project_app/image/icons/check(full).png' %}'"
+                         onmouseout="this.src='{% static 'project_app/image/icons/check(empty).png' %}'"
+                         onclick="location.href='/app/{{pk_project.pk}}/{{pk_category}}/done/{{todo.pk}}'"
+                        style="width:100%">
+                </div>
+            {% endif %}
             
             <div class="part">
                 <img src="{% static 'project_app/image/icons/part2.png' %}" class="icon_in_card">
@@ -170,10 +173,13 @@
                     {% endif %}
                 {% endfor %}
             </div>
-            <div class="complete">
-                <img src="{% static 'project_app/image/icons/check(full).png' %}" style="width:100%" >
-            </div>
-            
+
+            {% if todo.author == user %}
+                <div class="complete">
+                    <img src="{% static 'project_app/image/icons/check(full).png' %}" style="width:100%" >
+                </div>
+            {% endif %}
+
             <div class="part">
                 <img src="{% static 'project_app/image/icons/part2.png' %}" class="icon_in_card">
                 {{todo.category}}
