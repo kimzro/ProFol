@@ -439,7 +439,7 @@ def email_send(request, pk):
             target_user = User.objects.get(email=email_address)
         except User.DoesNotExist:
             print("User.DoesNotExist")
-            return redirect('/app/{{pk}}/edit_project/edit_project_form/')
+            return redirect('/app/'+str(pk)+'/edit_project/edit_project_form/')
 
         current_site = get_current_site(request)
         print(current_site) # 127.0.0.1:8000
