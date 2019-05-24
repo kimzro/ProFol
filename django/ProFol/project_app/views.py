@@ -1,12 +1,20 @@
 from django.utils import timezone
-
+from django.http import HttpResponse
 
 from django.shortcuts import render, redirect
-from .models import Project,Category, Todo, UserPortfolio, Tag
+from .models import Project, Category, Todo, UserPortfolio, Tag, User, Team
 
 from .forms import ProjectForm, TodoForm, UserPortfolioForm
 
 import operator
+
+# E-MAIL SMTP
+from django.core.mail import EmailMessage
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes, force_text
+from .tokens import account_activation_token
 
 # Create your views here.
 def index_redirect(request):
@@ -393,3 +401,144 @@ def create_todo(request, pk, category_title):
     else:
         print("else")
         return redirect('/app/')
+
+# E-MAIL SMTP
+def email_test(request, pk):
+    pk_project = Project.objects.get(pk=pk)
+    print(request.user)
+    print(pk_project)
+
+    context = {'pk_project':pk_project}
+    return render(request, 'project_app/email_test_page.html', context=context)
+
+def email_send(request, pk):
+    print("========================def:email_send========================")
+    pk_project = Project.objects.get(pk=pk)
+    print(pk_project)
+
+    from_user = request.user
+    from_user_email = from_user.email
+    print(from_user)
+    print(from_user_email)
+
+
+    if request.method == "POST":
+        print("request.method!!!")
+        email_address = request.POST['emailaddress']
+        print(email_address)
+        target_user = None
+        try:
+            target_user = User.objects.get(email=email_address)
+        except User.DoesNotExist:
+            print("User.DoesNotExist")
+            return redirect('/app/email_test/' + str(pk))
+
+        current_site = get_current_site(request)
+        print(current_site) # 127.0.0.1:8000
+
+        print("target_user = {}".format(target_user))
+        print("current_site.domain = {}".format(current_site.domain))
+        print("urlsafe_base64_encode(force_bytes(target_user.pk)) = {}".format(urlsafe_base64_encode(force_bytes(target_user.pk))))    # Mg
+        print("account_activation_token.make_token(target_user) = {}".format(account_activation_token.make_token(target_user)))  # 56l-dcdec8b0e14ff14333cf
+
+        # send to email
+        email_titleText = "Invitation Profol Project!!"
+        email_bodyText = render_to_string('project_app/acc_active_email.html',{
+            'user':target_user,
+            'domain':current_site.domain,
+            'uid':urlsafe_base64_encode(force_bytes(target_user.pk)),
+            'token':account_activation_token.make_token(target_user),
+            'from_user':from_user,
+            'from_user_email':from_user_email,
+            'pk':pk,
+        })
+        to_email = email_address
+
+        email = EmailMessage(email_titleText, email_bodyText, to=[to_email])
+        email.send()
+        return HttpResponse('Please confirm your email address to complete the registration')
+    else:
+        return HttpResponse('request.method is not POST')
+
+
+    # email_titleText = "Invitation Profol Project!!"
+    # email_bodyText = "Hello, This is invitation for joining Profol's project." \
+    #                  "if you want to permit to join this project, you can click  JOIN PROJECT button." \
+    #                  "Thank you."
+    # email = EmailMessage(email_titleText, email_bodyText, to=['hj2_0468@naver.com'])
+    # result = email.send()
+    # print("result")
+    # print(result)
+    print("========================def:email_send:finish========================")
+    return redirect('/app/email_test/'+str(pk))
+
+def activate(request, uidb64, token, from_user_email, pk):
+    print("========================def:activate========================")
+    print("from_user = {}".format(from_user_email))
+
+    from_user = User.objects.get(email=from_user_email)
+    project = Project.objects.get(pk=pk)
+
+    print(from_user)
+    print(project)
+
+    # decode for user.pk
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    httpResponseMessage = ""
+    alreadyMemberFlag = 0
+    # check user, token
+    if user is not None and account_activation_token.check_token(user, token):
+        # team already exist.
+        if project.participation is not None:
+            team = project.participation
+            for participation in team.participation.all():
+                if participation == user:
+                    print("You are memeber already.")
+                    httpResponseMessage = "You are memeber already."
+                    alreadyMemberFlag = 1
+                    break;
+            if alreadyMemberFlag == 0:
+                print("successful for adding user.")
+                team.participation.add(user)
+                team.save()
+
+            # just for printing
+            print("team member!!!")
+            for participation in team.participation.all():
+                print(participation)
+
+        # need to create team!
+        else:
+            print("create team start!!!")
+            team = Team(status=False)
+            team.save()
+            team.participation.add(from_user)
+            team.participation.add(user)
+            team.save()
+            print("create team end!!!")
+            for participation in team.participation.all():
+                print(participation)
+
+            project.participation=team
+            project.save()
+
+        print("success!!")
+        print("project = {}".format(project))
+        print("project.team = {}".format(project.participation))
+        print("project.team.member")
+        team = project.participation
+        for participation in team.participation.all():
+            print(participation)
+
+        # user.is_active = True
+        # user.save()
+        # login(request, user)
+        # return redirect('home')
+        return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
+    else:
+        return HttpResponse('Activation link is invalid!')

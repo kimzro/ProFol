@@ -21,3 +21,4 @@ class UserPortfolioForm(forms.ModelForm):
     class Meta:
         model = UserPortfolio
         fields = ['content']
+
