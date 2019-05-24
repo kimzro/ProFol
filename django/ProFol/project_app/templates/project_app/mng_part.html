@@ -18,11 +18,11 @@
                         <ul id="menu">
                             <img src="{% static 'project_app/image/icons/close_icon.png' %}" class="close_icon">
                             <br><br>
-                            <a href="#" class="menu_in_hamburger"><li>프로필 설정</li></a>
+                            <a href="/app/portfolio/edit_userportfolio_form/" class="menu_in_hamburger"><li>프로필 설정</li></a>
                             <a href="/app/create_project_form/" class="menu_in_hamburger"><li>프로젝트 생성</li></a>
                             <a href="#" class="menu_in_hamburger"><li>이용약관</li></a>
                             <a href="#" class="menu_in_hamburger"><li>고객센터</li></a>
-                            <a href="#" class="menu_in_hamburger"><li>Sign Out</li></a>
+                            <a href="{% url 'logout' %}" class="menu_in_hamburger"><li>Sign Out</li></a>
                         </ul>
                 </div>
             </nav>
@@ -177,7 +177,7 @@
                                     <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_photo profile_photo_in_card">
                             {% endif %}
                         {% endif %}
-                
+
                     {% endfor %}
                 {%else%}
                     {% if user.socialaccount_set.all.0.get_avatar_url %}

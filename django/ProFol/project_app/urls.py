@@ -36,7 +36,8 @@ urlpatterns = [
     # email smtp
     path('app/email_send/<int:pk>/', views.email_send),
     path('app/email_test/<int:pk>/',views.email_test),
-
-    # url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/(?P<from_user>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',views.activate, name='activate'),
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/(?P<from_user_email>[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})/(?P<pk>\d{1,5})/$',views.activate, name='activate'),
+
+    # logout
+    url(r'^accounts/', include('django.contrib.auth.urls')),
 ]

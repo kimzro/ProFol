@@ -147,8 +147,9 @@ AUTHENTICATION_BACKENDS = (
 )
 ACCOUNT_EMAIL_REQUIRED = True   # The user is required to hand over an e-mail address when signing up.
 
-# hj) setting for login redirect
+# hj) setting for login,logout redirect
 LOGIN_REDIRECT_URL='/app/'
+LOGOUT_REDIRECT_URL='/'
 
 # hj) setting for crispy (for comment)
 # CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -170,4 +171,4 @@ EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # hj) setting for google-allauth server
-ACCOUNT_DEFAULT_HTTP_PROTOCOL='https'
+# ACCOUNT_DEFAULT_HTTP_PROTOCOL='https'
