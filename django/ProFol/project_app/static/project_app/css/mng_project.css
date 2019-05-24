@@ -57,6 +57,7 @@
 .profile_icon{
     width:16%;
     margin-right: 3px;
+    border-radius: 5px;
 }
 
 .sched{

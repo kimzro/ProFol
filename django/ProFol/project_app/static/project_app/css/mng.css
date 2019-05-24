@@ -68,6 +68,9 @@ a:hover{
     float:left;
     left:6%;
 }
+.nav_header_logo:hover{
+    cursor:pointer;
+}
 .nav_header_icon{
     position:relative;
     width:33.42px;
@@ -87,10 +90,12 @@ a:hover{
     display:inline-block;
     position: relative;
     left:13.1%;
+    border-radius: 5px;
 }
 .profile_photo_in_card{
     width:1.2em;
     height:1.2em;
+    border-radius: 5px;
 }
 .profile_text{
     position: relative;
