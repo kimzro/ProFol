@@ -419,6 +419,7 @@ def email_test(request, pk):
     return render(request, 'project_app/email_test_page.html', context=context)
 
 def email_send(request, pk):
+
     print("========================def:email_send========================")
     pk_project = Project.objects.get(pk=pk)
     print(pk_project)
@@ -438,7 +439,7 @@ def email_send(request, pk):
             target_user = User.objects.get(email=email_address)
         except User.DoesNotExist:
             print("User.DoesNotExist")
-            return redirect('/app/email_test/' + str(pk))
+            return redirect('/app/'+str(pk)+'/edit_project/edit_project_form/')
 
         current_site = get_current_site(request)
         print(current_site) # 127.0.0.1:8000
@@ -477,7 +478,7 @@ def email_send(request, pk):
     # print("result")
     # print(result)
     print("========================def:email_send:finish========================")
-    return redirect('/app/email_test/'+str(pk))
+    return redirect('/app/{{pk}}/edit_project/edit_project_form/')
 
 def activate(request, uidb64, token, from_user_email, pk):
     print("========================def:activate========================")
