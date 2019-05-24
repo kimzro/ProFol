@@ -148,14 +148,14 @@
                             {% if u.socialaccount_set.all.0.get_avatar_url %}
                                 <img src="{{ u.socialaccount_set.all.0.get_avatar_url }}" class="profile_photo"/>
                             {% else %}
-                                <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_photo">
+                                <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_photo profile_photo_in_card">
                             {% endif %}
                     {% endfor %}
                 {%else%}
                     {% if user.socialaccount_set.all.0.get_avatar_url %}
                         <img src="{{ user.socialaccount_set.all.0.get_avatar_url }}" class="profile_photo"/>
                     {% else %}
-                        <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_photo">
+                        <img src="{% static 'project_app/image/icons/profile_sample.png' %}" class="profile_photo profile_photo_in_card">
                     {% endif %}
                 {% endif %}
             </div>

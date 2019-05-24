@@ -9,8 +9,15 @@
             padding:0;
             text-align: center;
         }
+        .wrapper{
+            margin-top:140px;
+        }
+        .main_logo{
+            display:inline-block;
+            width:400px;
+            margin-bottom:48px;
+         }
         .login_box{
-            margin-top:256px;
             background-color: #F4F5F9;
             padding:16px;
             display:inline-block;
@@ -26,9 +33,14 @@
     </style>
 </head>
 <body>
-    <div class="login_box">
-        <div class="login_google">
-            <img src="{% static 'project_app/image/icons/sign_in_with_google.png' %}" class="login_icon" onclick="location.href='{% provider_login_url "google" %}' ">
+    <div class="wrapper">
+        <div class="main_logo">
+            <img src="{% static 'project_app/image/ProFol2.png' %}" style="width:100%">
+        </div><br>
+        <div class="login_box">
+            <div class="login_google">
+                <img src="{% static 'project_app/image/icons/sign_in_with_google.png' %}" class="login_icon" onclick="location.href='{% provider_login_url "google" %}' ">
+            </div>
         </div>
     </div>
 </body>
