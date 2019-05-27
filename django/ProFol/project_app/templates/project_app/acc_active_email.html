@@ -1,6 +1,8 @@
 {% autoescape off %}
-Hi {{ user.username }},
-Hello, This is invitation for joining {{from_user}}'s project.
-Please click on the link to confirm your registration,
-http://{{ domain }}{% url 'activate' uidb64=uid token=token from_user_email=from_user_email pk=pk%}
+Hello, {{ user.username }},
+This is invitation for joining {{from_user}}'s project.
+
+Please click on the link to join {{from_user}}'s project.
+
+{{ domain }}{% url 'activate' uidb64=uid token=token from_user_email=from_user_email pk=pk%}
 {% endautoescape %}

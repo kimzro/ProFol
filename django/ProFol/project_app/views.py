@@ -548,6 +548,6 @@ def activate(request, uidb64, token, from_user_email, pk):
         # user.save()
         # login(request, user)
         # return redirect('home')
-        return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
+        return HttpResponse('Thank you for your email confirmation. Now you can access this project.')
     else:
         return HttpResponse('Activation link is invalid!')
